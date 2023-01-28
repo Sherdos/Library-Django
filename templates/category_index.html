@@ -1,0 +1,45 @@
+{% extends 'homepage.html' %}
+{% load static %}
+{% block content %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid" style="display: flex; justify-content: space-between;">
+    <a class="navbar-brand" href="{% url 'index' %}">Lib</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Главная</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Категории
+          </a>
+          <ul class="dropdown-menu">
+            {% for cat in categories %}
+            <li><a class="dropdown-item" href="{% url 'category_index' cat.slug %}">{{cat.title}}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<section style="padding: 10px; padding-left: 120px;" class="lib-categories-section">
+  <h1 style="text-align: center;">Книги по категории {{category.title}}</h1>
+  <div class="" style="display: flex;  flex-wrap: wrap; ">
+    {% for book in category.category_book.all %}
+    <div class="card" style="width: 18rem; margin-left: 10px; margin-top: 10px;">
+      <img src="{{book.image.url}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{book.title}}</h5>
+        <p class="card-text">{{ book.description|truncatewords:10 }}</p>
+        <a href="{% url 'book_read' book.id %}" class="btn btn-primary">Читать</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  </section>
+
+  {% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'homepage.html' %}
+{% load static %}
+{% block content %}
+<body>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" name="title">
+            <div class="col-12">
+                <label for="email" class="form-label">Фотография поста </label>
+                <input name="image" type="file" class="form-control" id="email">
+              </div>
+              <div class="col-12">
+                <label for="email" class="form-label">Книга</label>
+                <input name="book" type="file" class="form-control" id="email">
+              </div>
+            <button type="submit">отправить</button>
+        </form>
+
+ 
+ 
+{% endblock %}
