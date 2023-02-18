@@ -1,0 +1,14 @@
+{% extends 'book/homepage.html' %}
+
+{% block content %}
+    <div class="card_detail">
+        <div class="book_img">
+            <img src='{{book.image.url}}'>
+        </div>
+        <div class="book_text">
+            {{book.description|linebreaks}}
+        </div>
+        <a href="{% url 'read_book' book.slug %}"><button>Читать</button></a>
+    </div>
+</div>
+{% endblock %}

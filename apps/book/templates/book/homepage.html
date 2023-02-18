@@ -1,0 +1,36 @@
+{% load static %}
+{% load book %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{% static 'book/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'book/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'book/css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'book/css/card.css' %}">
+</head>
+<body>
+    
+{% block navbar %}
+
+{% navbar %}
+<div class="container">
+    <div class = 'side_card'>
+        {% show_categories '-title' cat_selected %}
+
+</div>
+
+    {% endblock navbar %}
+
+
+{% block content %}
+
+{% endblock %}
+
+
+</body>
+</html>

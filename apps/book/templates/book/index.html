@@ -1,0 +1,23 @@
+{% extends 'book/homepage.html' %}
+
+{% block content %}
+    <div>
+        {% if category %}
+            <h3>Книги по категории {{category.title}}</h3>
+        {% else %}
+            <h3>Книги</h3>
+        {% endif %}
+        <div>
+            <div class='cards'>
+            {% for book in books %}
+                {% include 'book/include/cards.html' %}
+                {% empty %}
+            </div>
+                <div>
+                    <h5>Нечего нет</h5>
+                <div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

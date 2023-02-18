@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+}
+
+.container {
+    max-width: 1560px;
+    margin: 0 auto;
+    padding: 0 30px;
+    position: relative;
+}
+.active, #sidebar a:hover, .header-a:hover  {
+    color: rgb(255, 157, 0);
+}
+
+.side_card {
+    margin-top: 46px;
+    display: flex;
+    position: relative;
+    justify-content: center;
+}
+
+.side_card h3 {
+    margin-left: 210px;
+    text-align: center;
+}
+
+
+#page0 {
+    height: auto !important;
+    margin-left: 500px;
+}
+
+/* #page0 span {
+    font-size: large !important;
+} */
+
+.paginator {
+    bottom: 0;
+    list-style-type: none;
+    position: fixed;
+    width: 100%;
+    display: none;
+    justify-content: space-around;
+}
+
+.con_paginator {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    display: block;
+    height: 34px;
+    
+}
+.con_paginator:hover .paginator{
+    display:flex;
+    background-color: rgba(0, 0, 0, 0.548);
+    
+}
+
+.paginator li {
+    float: left;
+    margin-top: 10px;
+
+}
+
+.paginator a, .current {
+    color: white;
+    text-decoration: none;
+}
+
+.paginator a:hover {
+    color: black;
+}
+
+
+header {
+    background-color: #575353;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+}

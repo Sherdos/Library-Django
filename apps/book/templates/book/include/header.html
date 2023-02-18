@@ -1,0 +1,18 @@
+<header style="background-color:#575353;" >
+  <div class="container">
+    <ul id='header'>
+      {% for m in menu %}
+        {% if title == m.title %}
+          <li class='active'><a class='header-a' href="{% url m.url_name %}">{{m.title}}</a></li>
+        {% else %}
+          <li><a class='header-a' href="{% url m.url_name %}">{{m.title}}</a></li>
+        {% endif %}
+      {% endfor %}
+      <form class="search" action="{% url 'search_book' %}" method="get">
+        <input type='text', name="key" placeholder='Введите текст'>
+        <button type="submit">Поиск</button>
+      </form>
+    </ul>
+
+  </div>
+</header>

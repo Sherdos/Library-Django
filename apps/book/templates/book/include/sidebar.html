@@ -1,0 +1,28 @@
+<aside>
+    <ul id='sidebar'>
+        {% if cat_selected == 0 %}
+            <li>
+                <span class='active'>Все категории</span>
+            </li>
+            {% else %}
+            <li>
+                <a href="{% url 'index' %}">
+                    Все категории
+                </a>
+            </li>
+            {% endif %}
+        {% for cat in cats %}
+            {% if cat_selected == cat.pk %}
+            <li>
+                <span class='active'>{{cat.title}}</span>
+            </li>
+            {% else %}
+            <li>
+                <a href="{{cat.get_absolute_url}}">
+                    {{cat.title}}
+                </a>
+            </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</aside>

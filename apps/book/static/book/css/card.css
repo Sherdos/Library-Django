@@ -1,0 +1,67 @@
+.cards {
+    display: flex;
+    margin-left: 210px;
+}
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+    margin-left: 10px;
+    height: 400px;
+    color: black;
+}
+
+  
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+  
+/* Add some padding inside the card container */
+.card_body {
+    padding: 10px 16px;
+    height: 200px;
+    background-color: rgb(229 229 229);
+}
+
+
+
+
+
+.card img {
+    width: 130px;
+    height: 200px;
+}
+
+.card_img {
+    height: 210px;
+    padding: 10px;
+    background-color: rgb(186, 178, 178);
+}
+
+/* .card_buttom {
+
+} */
+
+.card_detail {
+    display: flex;
+    margin-left: 220px;
+    margin-top: 20px;
+}
+
+
+.book_img img {
+    width: 300px;
+    height: 450px;
+}
+
+.book_text {
+    padding-left: 10px;
+}
+
+
+

@@ -1,0 +1,29 @@
+
+#header {
+    list-style-type: none;
+    background-color: #575353;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#header li {
+    float: left;
+}
+
+.header-a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.search {
+    display: flex;
+    height: 30px;
+    padding-top: 8px;
+    margin-right: 5px;
+    
+
+}

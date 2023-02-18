@@ -1,0 +1,18 @@
+{% load static %}
+    <div class="card">
+      <div class="card_img">
+        <img src="{{book.image.url}}" alt="...">
+      </div>
+      <div class="card_body">
+        <h5>{{book.title}}</h5>
+        <p>{{ book.description|truncatewords:7 }}</p>
+        <div class="card_buttom">
+          <a href="{{ book.get_absolute_url }}">Читать</a>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  
