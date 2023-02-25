@@ -1,0 +1,41 @@
+* {box-sizing: border-box}  
+
+.con {
+    padding: 15px;
+}
+
+.form_input {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+.form_input:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+  }
+
+a {
+color: dodgerblue;
+}
+
+.signin {
+background-color: #f1f1f1;
+text-align: center;
+}
+
+.form-error {
+    color: red;
+}
+
+.form-error li {
+    list-style-type: none;
+}

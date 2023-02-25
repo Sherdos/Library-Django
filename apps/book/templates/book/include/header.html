@@ -1,18 +1,19 @@
-<header style="background-color:#575353;" >
+<header >
   <div class="container">
-    <ul id='header'>
+    <div class="nav">
       {% for m in menu %}
         {% if title == m.title %}
-          <li class='active'><a class='header-a' href="{% url m.url_name %}">{{m.title}}</a></li>
+          <a class='active' href="{% url m.url_name %}">{{m.title}}</a>
         {% else %}
-          <li><a class='header-a' href="{% url m.url_name %}">{{m.title}}</a></li>
+          <a class='' href="{% url m.url_name %}">{{m.title}}</a>
         {% endif %}
       {% endfor %}
-      <form class="search" action="{% url 'search_book' %}" method="get">
-        <input type='text', name="key" placeholder='Введите текст'>
+      
+      <form action="{% url 'search_book' %}" class="search-form">
         <button type="submit">Поиск</button>
+        <input class="search" type='text', name="key" placeholder='Введите текст'>
       </form>
-    </ul>
-
+      
+    </div>
   </div>
 </header>

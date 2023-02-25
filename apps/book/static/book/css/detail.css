@@ -1,0 +1,48 @@
+#page0 {
+    height: auto !important;
+    width: auto !important;
+    margin-left: 170px;
+}
+
+/* #page0 span {
+    font-size: large !important;
+} */
+
+.paginator {
+    bottom: 0;
+    list-style-type: none;
+    position: fixed;
+    width: 1000px;
+    display: none;
+    justify-content: space-evenly;
+}
+
+.con_paginator {
+    bottom: 0;
+    position: fixed;
+    padding: 0 10px;
+    width: 100%;
+    display: block;
+    height: 34px;
+    
+}
+.con_paginator:hover .paginator{
+    display:flex;
+    background-color: rgba(0, 0, 0, 0.548);
+    
+}
+
+.paginator li {
+    float: left;
+    margin-top: 10px;
+
+}
+
+.paginator a, .current {
+    color: white;
+    text-decoration: none;
+}
+
+.paginator a:hover {
+    color: black;
+}

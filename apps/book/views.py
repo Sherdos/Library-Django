@@ -1,37 +1,51 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.http import FileResponse
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
 import fitz
 from .models import *
+from .forms import *
+from .utils import *
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import logout, login
 # Create your views here.
 
-class IndexView(ListView):
-    model = Books
+# class
+
+class IndexView(DataMixin, ListView):
     template_name = 'book/index.html'
     context_object_name = 'books'
+    paginate_by = 6
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Главная страница'
-        context['cat_selected'] = 0
+        c_def = self.get_user_context(title='Главная')
+        context.update(c_def)
         return context
+    
+    def get_queryset(self):
+        return Books.objects.all().order_by('-id')
 
 
-class BookCategoryView(ListView):
+
+class BookCategoryView(DataMixin,ListView):
     template_name = 'book/index.html'
     context_object_name = 'books'
     allow_empty = False
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Категория - ' + str(context['books'][0].category)
-        context['cat_selected'] = context['books'][0].category_id
+        c_def = self.get_user_context(title='Категория - ' + str(context['books'][0].category), cat_selected=context['books'][0].category_id)
+        context.update(c_def)
         return context
     
     def get_queryset(self):
         return Books.objects.filter(category__slug=self.kwargs['cat_slug'])
 
 
-class ShowBookView(DetailView):
+
+class ShowBookView(DataMixin, DetailView):
     model = Books
     template_name = 'book/book.html'
     slug_url_kwarg = 'book_slug'
@@ -39,12 +53,13 @@ class ShowBookView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = context['book']
-        context['cat_selected'] = context['book'].category_id
+        c_def = self.get_user_context(title=context['book'], cat_selected=context['book'].category_id)
+        context.update(c_def)
         return context
 
 
-class SearchBookView(ListView):
+
+class SearchBookView(DataMixin, ListView):
     template_name = 'book/index.html'
     context_object_name = 'books'
 
@@ -55,44 +70,77 @@ class SearchBookView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Поиск'
-        context['cat_selected'] = 0
+        c_def = self.get_user_context(title='Поиск')
+        context.update(c_def)
         return context
 
 
 
+class RegisterUserView(DataMixin, CreateView):
+    form_class = RegisterUserForm
+    template_name = 'book/auth.html'
+    success_url = reverse_lazy('index')
 
-
-# class BookReadView(DetailView):
-#     template_name = 'book/detail.html'
-#     context_object_name = 'book'
-#     model = Books
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['description']='Пожалуйста, заполните эту форму, чтобы создать учетную запись.'
+        c_def = self.get_user_context(title='Регистрация')
+        context.update(c_def)
+        return context
     
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title'] = 'Читать'
-#         book = fitz.open('media/'+str(context['book'].book))
-#         context['page'] = self.get(self.request.GET)
-#         return context
-
-#     def get(self, request, **kwargs):
-#         book = fitz.open('media/'+str(self.model.book))
-#         if request.GET == 'page':
-#             page = book.load_page(int(self.request.GET.get('page')))
-#             return page.get_text("text")
-
-#     def get_queryset(self):
-#         return Books.objects.get(slug=self.kwargs['slug'])
-    
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('index')
         
+        
+        
+class LoginUserView(DataMixin, LoginView):
+    form_class = LoginUserForm
+    template_name = 'book/auth.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['description']='Пожалуйста, заполните эту форму, чтобы войти в учетную запись.'
+        c_def = self.get_user_context(title='Авторизация')
+        context.update(c_def)
+        return context
+    
+    def get_success_url(self):
+        return reverse_lazy('index')
+
+
+# def book_read(request, slug):
+#     book = Books.objects.get(slug=slug)
+#     book_url = fitz.open('media/'+str(book.book))
+#     try:
+#         page_number = int(request.GET.get('page'))
+#         page = book_url.load_page(page_number)
+#     except:
+#         page_number = 1
+#         page = book_url.load_page(0)
+#     lase_page = book_url.page_count
+#     page_text = page.get_text("html")
+#     context = {
+#         'page':page_text,
+#         'page_number':page_number,
+#         'lase_page':lase_page,
+#         'book_url':book_url
+#     }
+#     return render(request, 'book/detail.html', context)
 
 
 
+def dow(request,id,str):
+    if 'dow' in str:
+        book = Books.objects.get(id=id)
+        return FileResponse(book.book.open(), as_attachment=True)
+    elif 'read' in str:
+        book = Books.objects.get(id=id)
+        return FileResponse(book.book.open(), content_type='application/pdf')
+  
 
-
-
-
+  
 def about(request):
     context = {
         'title':'О сайте',
@@ -101,25 +149,7 @@ def about(request):
 
 
 
-def book_read(request, slug):
-    book = Books.objects.get(slug=slug)
-    book_url = fitz.open('media/'+str(book.book))
-    try:
-        page_number = int(request.GET.get('page'))
-        page = book_url.load_page(page_number)
-    except:
-        page_number = 1
-        page = book_url.load_page(0)
-    lase_page = book_url.page_count
-    page_text = page.get_text("html")
-    context = {
-        'page':page_text,
-        'page_number':page_number,
-        'lase_page':lase_page,
-        'book_url':book_url
-    }
-    return render(request, 'book/detail.html', context)
-
-
-
+def logout_user(request):
+    logout(request)
+    return redirect('index')
 

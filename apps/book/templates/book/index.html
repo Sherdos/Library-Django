@@ -1,23 +1,54 @@
 {% extends 'book/homepage.html' %}
+{% load static %}
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'book/css/index.css' %}">
+    {% endblock %}
 
 {% block content %}
-    <div>
-        {% if category %}
-            <h3>Книги по категории {{category.title}}</h3>
-        {% else %}
-            <h3>Книги</h3>
-        {% endif %}
-        <div>
+
             <div class='cards'>
-            {% for book in books %}
-                {% include 'book/include/cards.html' %}
+                {% for book in books %}
+                    <div class="card">
+                        <div class="card_img">
+                            <img src="{{book.image.url}}" alt="...">
+                        </div>
+                        <div class="card_body">
+                            <h5>{{ book.title|truncatechars:30 }}</h5>
+                            <p>{{ book.description|truncatechars:50 }}</p>
+                            <div class="card_buttom">
+                                <a  href="{{ book.get_absolute_url }}"><button class="btn">Читать</button></a>
+                            </div>
+                        </div>
+                    </div>
                 {% empty %}
+                    <div class="empty">
+                        <h5>Нечего нет</h5>
+                    </div>
+                {% endfor %}
             </div>
-                <div>
-                    <h5>Нечего нет</h5>
-                <div>
-            {% endfor %}
-        </div>
-    </div>
-</div>
+
+
+            
+            {% if page_obj.has_other_pages %}
+                <div class="container-pagination">
+                    <div class="step-links">
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                                <li><a href="?page=1"> << </a></li>
+                            {% endif %}
+                            {% for p in paginator.page_range %}
+                                {% if page_obj.number == p %}
+                                    <li><p>{{p}}</p></li>
+                                {% elif p >= page_obj.number|add:-2 and page_obj.number|add:2 %}
+                                    <li><a href="?page={{ p }}">{{p}}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                                <li><a href="?page={{ page_obj.next_page_number }}"> >> </a>{{p}}</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+
 {% endblock %}

@@ -1,16 +1,18 @@
 {% extends 'book/homepage.html' %}
-{% load static %}
-{% load book %}
 
-{% block content %}
-<style>
-</style>
-            <br>
-            {% autoescape off %}
-            <p>{{page}}</p>
-            {% endautoescape %}
+    {% load static %}
+    {% load book %}
 
-</div>
-{% paginator_num book_url=book_url request=request %}
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'book/css/detail.css' %}">
+    {% endblock %}
 
-{% endblock %}
+    {% block content %}
+
+        {% autoescape off %}
+            {{page}}
+        {% endautoescape %}
+
+        
+        {% paginator_num book_url=book_url request=request %}
+    {% endblock %}

@@ -1,0 +1,33 @@
+.card_detail {
+    display: flex;
+}
+
+.book_img {
+    margin-top: 10px;
+}
+
+.book_img img {
+    width: 300px;
+    height: 450px;
+}
+
+.book_text {
+    text-align: center;
+    padding-left: 10px;
+}
+
+.book_text p {
+    margin-top: 10px;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    width: 100px !important;
+    margin-left: 10px;
+}
+
+

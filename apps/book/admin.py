@@ -9,6 +9,7 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug' : ('title', )}
     search_fields = ('title','id')
     
+    
 class BookAdmin(admin.ModelAdmin):
     list_display = ('id','title', 'category', 'date_issue')
     list_display_links = ('title','id')
