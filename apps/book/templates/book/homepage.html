@@ -1,12 +1,15 @@
 {% load static %}
-{% load book %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}}</title>
+    {% block title %}
+    
+    <title>{{title}} </title>
+    {% endblock title %}
     <link rel="stylesheet" href="{% static 'book/css/style.css' %}">
     {% block css %}
 
@@ -15,7 +18,7 @@
 <body>
 
     {% block navbar  %}
-        <header >
+        <header > 
             <div class="container">
                 <div class="nav">
                     {% for m in menu %}
@@ -28,10 +31,14 @@
                     {% if request.user.is_staff == True %}
                         <a class='a-nav' href="{% url 'admin:index' %}">Админ панель</a>
                     {% endif %}
+                    {% if not request.user.is_authenticated %}
                     <div>
                         <a href="{% url 'login' %}"><button class='button-green' >Войти</button></a>
                         <a href="{% url 'register' %}"><button class='button-green' >Регистрация</button></a>
                     </div>
+                    {% else %}
+                        <a href="{% url 'logout' %}"><button class='button-green' >Выйти</button></a>
+                    {% endif %}
                     <button class='button-green' id="myBtn">Поиск</button>
                 </div>
             </div>
@@ -73,6 +80,11 @@
                 </aside>
             {% endblock sidebar %}
         </div>
+        
+        {% block include %}
+        
+        {% endblock %}
+
 
 
         <div class="mar_content">

@@ -1,14 +1,6 @@
 asgiref==3.6.0
-cffi==1.15.1
-charset-normalizer==3.0.1
-cryptography==39.0.1
-Django==4.1.5
-django-cleanup==6.0.0
+Django==4.1.7
+django-cleanup==7.0.0
 django_debug_toolbar==3.8.1
-pdfminer.six==20221105
 Pillow==9.4.0
-pycparser==2.21
-PyMuPDF==1.21.1
-PyPDF2==3.0.1
 sqlparse==0.4.3
-tzdata==2022.7

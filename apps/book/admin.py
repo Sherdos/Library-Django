@@ -19,9 +19,20 @@ class BookAdmin(admin.ModelAdmin):
     search_fields = ('title',)
 
 
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = ('id','name', 'image')
+    list_display_links = ('name','id')
+    list_filter = ('name',)
+    list_editable = ('image',)
+    prepopulated_fields = {'slug' : ('name', )}
+    search_fields = ('name',)
+
+
 
 admin.site.register(Books, BookAdmin)
 
 admin.site.register(Category, CategoryAdmin)
+
+admin.site.register(Author, AuthorAdmin)
 
 

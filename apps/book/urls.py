@@ -17,5 +17,8 @@ urlpatterns = [
     
     # other
     path('about/',                      about,                        name='about'),
-    path('book/<int:id>/<str:str>/',          dow,                          name='dow'),
+    path('book/<int:id>/<str:str>/',    dow,                          name='dow'),
+    
+    
+    path('author/<slug:slug>/',         ShowAuthor.as_view(),         name='show_author')
 ]

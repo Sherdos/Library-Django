@@ -110,7 +110,7 @@ aside {
 aside a, span{
     padding: 6px 8px 6px 16px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 18px;
     color: #736e6e;
     display: block;
 }
@@ -125,7 +125,7 @@ aside span.active {
 
 @media screen and (max-height: 450px) {
     aside {padding-top: 15px;}
-    aside a {font-size: 18px;}
+    aside a, span {font-size: 25px;}
 }
 
 .btn {

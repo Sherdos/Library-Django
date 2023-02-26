@@ -1,0 +1,32 @@
+{% extends 'book/show/show.html' %}
+
+
+{% block href %}
+<li><a href="{{ book.category.get_absolute_url }}">{{ book.category }}</a></li>
+    {% cache 60 path %}
+    <li><a href="{{ book.author.get_absolute_url }}">{{ book.author.name }}</a></li>
+    {% endcache %}
+        <li>{{book}}</li>
+        {% endblock href %}
+
+{% block content %}
+    <div class="card_detail">
+        <div class="book_img">
+            <img src='{{book.image.url}}'>
+            <a target="_blank" href='{% url "dow" book.id "read" %}' ><button class="btn button" name='read' type="submit" >Читать</button></a>
+            <a target="_blank" href='{% url "dow" book.id "dow" %}' ><button class="btn button" name='dow' type="submit">Скачать</button></a>
+        </div>
+        <div class="book_text">
+            <h1>{{book.title}}</h1>
+            {{book.description|linebreaks}}
+            <br>
+            <h3>Подробная информация</h3>
+            <ul class='info'>
+                <li><b>Автор:</b> <a href='{{book.author.get_absolute_url}}'>{{book.author.name}}</a></li>
+                <li><b>Дата написания:</b> {{ book.date_issue }}</li>
+                <li><b>Дата поступления:</b> {{ book.create }}</li>
+            </ul>
+            
+        </div>
+    </div>
+{% endblock %}

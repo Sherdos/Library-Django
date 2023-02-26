@@ -1,5 +1,5 @@
 from apps.book.models import Category
-
+from django.core.cache import cache
 
 menu = [
         {'title': "Главная", 'url_name': 'index'},
@@ -9,7 +9,10 @@ menu = [
 class DataMixin:
     def get_user_context(self, **kwargs):
         context = kwargs
-        cats = Category.objects.all()
+        cats = cache.get('cats')
+        if not cats:
+            cats = Category.objects.all()
+            cache.set('cats', cats, 60)
         context['cats']=cats
         context['menu']=menu
         if 'cat_selected' not in context:

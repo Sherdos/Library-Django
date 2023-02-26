@@ -1,0 +1,16 @@
+{% extends 'book/show/show.html' %}
+    {% block href %}
+        <li>{{ author.name }}</li>
+    {% endblock href %}
+
+{% block content %}
+    <div class="card_detail">
+        <div class="book_img">
+            <img src='{{author.image.url}}'>
+        </div>
+        <div class="book_text">
+            <h1>{{author.name}}</h1>
+            {{author.description|linebreaks}}
+        </div>
+    </div>
+{% endblock %}

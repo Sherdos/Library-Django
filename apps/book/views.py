@@ -2,16 +2,16 @@ from django.http import FileResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
-import fitz
 from .models import *
 from .forms import *
 from .utils import *
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout, login
+from django.core.cache import cache
 # Create your views here.
 
-# class
+# ListView
 
 class IndexView(DataMixin, ListView):
     template_name = 'book/index.html'
@@ -25,7 +25,11 @@ class IndexView(DataMixin, ListView):
         return context
     
     def get_queryset(self):
-        return Books.objects.all().order_by('-id')
+        cach = cache.get('books')
+        if not cach:
+            cach = Books.objects.all().order_by('-id')
+            cache.set('books', cach, 60)
+        return cach
 
 
 
@@ -41,21 +45,11 @@ class BookCategoryView(DataMixin,ListView):
         return context
     
     def get_queryset(self):
-        return Books.objects.filter(category__slug=self.kwargs['cat_slug'])
-
-
-
-class ShowBookView(DataMixin, DetailView):
-    model = Books
-    template_name = 'book/book.html'
-    slug_url_kwarg = 'book_slug'
-    context_object_name = 'book'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title=context['book'], cat_selected=context['book'].category_id)
-        context.update(c_def)
-        return context
+        cach = cache.get('books'+str(self.kwargs['cat_slug']))
+        if not cach:
+            cach = Books.objects.filter(category__slug=self.kwargs['cat_slug'])
+            cache.set('books'+str(self.kwargs['cat_slug']), cach, 60)
+        return cach
 
 
 
@@ -76,6 +70,39 @@ class SearchBookView(DataMixin, ListView):
 
 
 
+# DetailView
+
+class ShowBookView(DataMixin, DetailView):
+    queryset = Books.objects.all()
+    template_name = 'book/show/show_book.html'
+    slug_url_kwarg = 'book_slug'
+    context_object_name = 'book'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title=context['book'], cat_selected=context['book'].category_id)
+        context.update(c_def)
+        return context
+    
+    
+    
+    
+class ShowAuthor(DataMixin, DetailView):
+    model = Author
+    template_name = 'book/show/show_author.html'
+    context_object_name = 'author'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Автор - '+str(context['author'].name))
+        context.update(c_def)
+        return context
+    
+    
+
+
+# CreateView
+
 class RegisterUserView(DataMixin, CreateView):
     form_class = RegisterUserForm
     template_name = 'book/auth.html'
@@ -94,7 +121,7 @@ class RegisterUserView(DataMixin, CreateView):
         return redirect('index')
         
         
-        
+           
 class LoginUserView(DataMixin, LoginView):
     form_class = LoginUserForm
     template_name = 'book/auth.html'
@@ -109,25 +136,9 @@ class LoginUserView(DataMixin, LoginView):
     def get_success_url(self):
         return reverse_lazy('index')
 
+    
 
-# def book_read(request, slug):
-#     book = Books.objects.get(slug=slug)
-#     book_url = fitz.open('media/'+str(book.book))
-#     try:
-#         page_number = int(request.GET.get('page'))
-#         page = book_url.load_page(page_number)
-#     except:
-#         page_number = 1
-#         page = book_url.load_page(0)
-#     lase_page = book_url.page_count
-#     page_text = page.get_text("html")
-#     context = {
-#         'page':page_text,
-#         'page_number':page_number,
-#         'lase_page':lase_page,
-#         'book_url':book_url
-#     }
-#     return render(request, 'book/detail.html', context)
+
 
 
 
