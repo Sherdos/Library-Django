@@ -1,0 +1,79 @@
+#header {
+    background-color: #4CAF50;
+}
+
+.module caption {
+    background-color: #4CAF50;
+}
+
+.container {
+    max-width: 1560px;
+    margin: 0 auto;
+    padding: 0 30px;
+    position: relative;
+}
+
+header {
+    background-color: #333;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+}
+
+.nav {
+    background-color: #333;
+    overflow: hidden;
+}
+
+.a-nav {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.a-nav:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.nav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+.btn:hover {
+    opacity:1;
+}
+
+.button-green {
+    float: right;
+    padding: 6px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #4CAF50;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+div.breadcrumbs {
+    background-color: #429a45;
+}

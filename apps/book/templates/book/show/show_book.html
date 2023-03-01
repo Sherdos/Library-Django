@@ -3,9 +3,7 @@
 
 {% block href %}
 <li><a href="{{ book.category.get_absolute_url }}">{{ book.category }}</a></li>
-    {% cache 60 path %}
     <li><a href="{{ book.author.get_absolute_url }}">{{ book.author.name }}</a></li>
-    {% endcache %}
         <li>{{book}}</li>
         {% endblock href %}
 

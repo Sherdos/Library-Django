@@ -6,96 +6,62 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block title %}
-    
     <title>{{title}} </title>
-    {% endblock title %}
     <link rel="stylesheet" href="{% static 'book/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'book/css/media.css' %}">
     {% block css %}
 
     {% endblock %}
 </head>
 <body>
 
+
     {% block navbar  %}
-        <header > 
+        <header> 
             <div class="container">
                 <div class="nav">
-                    {% for m in menu %}
-                        {% if title == m.title %}
-                            <a class='a-nav active' href="{% url m.url_name %}">{{m.title}}</a>
-                        {% else %}
-                            <a class='a-nav' href="{% url m.url_name %}">{{m.title}}</a>
-                        {% endif %}
-                    {% endfor %}
+                    
+                    <div class='mobile-btn a-nav'>
+                            <img src='{% static "book/list.svg" %}' >
+                    </div>
+                    <a class='a-nav active' href="{% url 'index' %}">Главная</a>
+
                     {% if request.user.is_staff == True %}
                         <a class='a-nav' href="{% url 'admin:index' %}">Админ панель</a>
                     {% endif %}
+
+                    <form action="{% url 'search_book' %}" class="search-form">
+                        <input class="search" type='text', name="key" placeholder='Введите текст'>
+                        <button type="submit">Поиск</button>
+                    </form>
                     {% if not request.user.is_authenticated %}
-                    <div>
-                        <a href="{% url 'login' %}"><button class='button-green' >Войти</button></a>
-                        <a href="{% url 'register' %}"><button class='button-green' >Регистрация</button></a>
-                    </div>
+                        <div>
+                            <a href="{% url 'login' %}"><button class='button-green' >Войти</button></a>
+                        </div>
                     {% else %}
                         <a href="{% url 'logout' %}"><button class='button-green' >Выйти</button></a>
                     {% endif %}
-                    <button class='button-green' id="myBtn">Поиск</button>
                 </div>
             </div>
         </header>
-
-
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <form action="{% url 'search_book' %}" class="search-form">
-                    <input class="search" type='text', name="key" placeholder='Введите текст'>
-                    <button type="submit">Поиск</button>
-                </form>
-                <span class="close">&times;</span>
-            </div>
-        </div>
-
     {% endblock  %}
-
-
-
-
-    <div class="container">
-        <div class = 'pos_content'>
+    <div class="row">
+        <div class="col-l-3 col-ps-3 menu">
             {% block sidebar %}
-                <aside>
-                    {% if cat_selected == 0 %}
-                        <span class='active'>Все категории</span>
-                    {% else %}
-                        <a href="{% url 'index' %}">Все категории</a>
-                    {% endif %}
-
-                    {% for cat in cats %}
-                        {% if cat_selected == cat.pk %}
-                            <span class='active'>{{cat.title}}</span>
-                        {% else %}
-                            <a href="{{cat.get_absolute_url}}"> {{cat.title}} </a>
-                        {% endif %}
-                    {% endfor %}
-                </aside>
+                    <ul>
+                        {% for c in cats %}
+                        <a href='{{c.get_absolute_url}}' ><li>{{c.title}}</li></a>
+                        {% endfor %}
+                      </ul>
             {% endblock sidebar %}
-        </div>
-        
-        {% block include %}
-        
-        {% endblock %}
-
-
-
-        <div class="mar_content">
+        </div> <!-- 25% -->
+        <div class="col-l-9 col-p-12">
             {% block content %}
         
             {% endblock %}
-        </div>
-    </div>
+    </div> <!-- 75% -->
+      </div>
 
-
-
-    <script src="{% static 'book/js/style.js' %}"></script>
+    <script src='{% static "book/js/main.js" %}'></script>      
 </body>
 </html>

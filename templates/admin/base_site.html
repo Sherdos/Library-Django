@@ -1,0 +1,27 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}
+<link rel='stylesheet' href='{% static "css/admin.css" %}' >
+{% endblock extrastyle %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+{% endblock %}
+
+{% block nav-global %}
+<header > 
+    <div class="container">
+        <div class="nav">
+                <a class='a-nav' href="{% url 'index' %}">Главная</a>
+                <a class='a-nav' href="{% url 'about' %}">О сайте</a>
+                <a class='a-nav active' href="{% url 'admin:index' %}">Админ панель</a>
+            <a href="{% url 'logout' %}"><button class='button-green' >Выйти</button></a>
+        </div>
+    </div>
+</header>
+
+
+{% endblock %}
