@@ -23,18 +23,18 @@
             <p><label class="form-label" for="{{f.id_for_label}}"><b>{{f.label}}</b></label>{{f}}</p>
         {% endfor %}
         <hr>
-        {% if title == 'Войти' %}
-            <p>Вы забыли пароль? <a href="#">Сброс пароля</a>.</p>
+        {% if title == 'Регистрация' %}
+        <p>Создавая аккаунт, вы соглашаетесь с нашими <a href="#">Условиями и конфиденциальностью</a>.</p>
         {% else %}
-            <p>Создавая аккаунт, вы соглашаетесь с нашими <a href="#">Условиями и конфиденциальностью</a>.</p>
+        <p>Вы забыли пароль? <a href="#">Сброс пароля</a>.</p>
         {% endif %}
         <button type="submit" class="btn" >{{ title }}</button>
     </div>
     <div class="con signin">
-        {% if title == 'Войти' %}
-            <p>У вас нет аккаунт? <a href="{% url 'register' %}">Регистрация</a>.</p>
+        {% if title == 'Регистрация' %}
+        <p>У вас уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>.</p>
         {% else %}
-            <p>У вас уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>.</p>
+        <p>У вас нет аккаунт? <a href="{% url 'register' %}">Регистрация</a>.</p>
         {% endif %}
     </div>
 </form>

@@ -5,89 +5,52 @@
     font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
 }
 
-.container {
-    max-width: 1560px;
-    margin: 0 auto;
-    padding: 0 30px;
-    position: relative;
-}
-
-.content-center {
-    margin: 0 50px;
-    margin-top: 50px;
-    padding-top: 10px;
-    padding: 0px 10px;
-}
-
-.right-content {
-    margin-top: 46px;
-    position: relative;
-}
-
-
-
-
-header {
-    background-color: #333;
-    top: 0;
-    left: 0;
-    z-index: 10;
+.navbar {
+    background-color: #111;
     width: 100%;
-    height: 50px;
+    position: fixed;
+    z-index: 10;
 }
 
-.nav {
-    background-color: #333;
-    overflow: hidden;
+.menu {
+   margin-left: 50px;
 }
 
-.a-nav {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 10px 14px;
+.container-fluid {
+    display: flex;
+    padding: 10px;
+}
+
+.nav-link {
+    margin-left: 10px;
     text-decoration: none;
-    font-size: 15px;
-    border-bottom: 3px solid #4caf4f8b;
-    margin-left: 5px;
-}
-
-.a-nav:hover {
-    border-bottom:3px solid #4CAF50;
-}
-
-.nav a.active {
-    border-bottom:3px solid #4CAF50;
     color: white;
 }
 
-.search-form {
-    display: none;
-    float: left;
-    margin-top: 5px;
-    margin-left: 150px;
+.nav-link:hover {
+    color: #4CAF50;
 }
 
-.search-form button {
-    float: left;
-    padding: 6px;
-    margin-top: 4px;
-    margin-right: 16px;
-    background: #4CAF50;
-    font-size: 17px;
-    border: none;
-    cursor: pointer;
-    color: white;
+
+.sidebar {
+    list-style: none;
 }
 
-.search {
-    float: left;
-    padding: 6px;
-    margin-top: 2px;
-    margin-right: 16px;
-    font-size: 17px;
+.link-sidebar {
+    padding: 10px;
+    border-bottom: outset #4caf4f80 ;
+
 }
+
+.link-sidebar:hover {
+    border-color: #4CAF50;
+}
+
+.link-sidebar a {
+    color: black;
+    text-decoration: none;
+}
+
 
 .btn {
     background-color: #4CAF50;
@@ -116,64 +79,178 @@ header {
     color: white;
 }
 
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
+
+
+
+
+
+
+
+  #menu__toggle:checked ~ .menu__btn > span {
+    transform: rotate(45deg);
+  }
+  #menu__toggle:checked ~ .menu__btn > span::before {
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 40%; /* Could be more or less, depending on screen size */
-    height: 100px;
-    display: flex;
-    justify-content: center;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+    transform: rotate(0);
+  }
+  #menu__toggle:checked ~ .menu__btn > span::after {
+    top: 0;
+    transform: rotate(90deg);
+  }
+  #menu__toggle:checked ~ .menu__box {
+    visibility: visible;
+    left: 0;
   }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
+
+
+  /* скрываем чекбокс */
+#menu__toggle {
+    opacity: 0;
+  }
+  /* стилизуем кнопку */
+.menu__btn {
+    display: flex; /* используем flex для центрирования содержимого */
+    align-items: center;  /* центрируем содержимое кнопки */
+    position: fixed;
+    top: 5px;
+    left: 20px;
+    width: 26px;
+    height: 26px;
     cursor: pointer;
+    z-index: 1;
+}
+/* добавляем "гамбургер" */
+.menu__btn > span,
+.menu__btn > span::before,
+.menu__btn > span::after {
+display: block;
+position: absolute;
+width: 100%;
+height: 2px;
+background-color: #616161;
+}
+.menu__btn > span::before {
+content: '';
+top: -8px;
+}
+.menu__btn > span::after {
+    content: '';
+    top: 8px;
 }
 
 
-
-
-
-
-
+  /* контейнер меню */
+.menu__box {
+    display: block;
+    position: fixed;
+    visibility: hidden;
+    top: 0;
+    left: -100%;
+    height: 100%;
+    margin: 0;
+    padding: 80px 0;
+    list-style: none;
+    background-color: #ECEFF1;
+    box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
+  }
+  /* элементы меню */
+  .menu__item {
+    display: block;
+    padding: 12px 24px;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .menu__item:hover {
+    background-color: #CFD8DC;
+  }
 /* 
 
 new
 
 */
 
+#menu__toggle2:checked ~ .menu__btn2 > span {
+    transform: rotate(45deg);
+  }
+  #menu__toggle2:checked ~ .menu__btn2 > span::before {
+    top: 0;
+    transform: rotate(0);
+  }
+  #menu__toggle2:checked ~ .menu__btn2 > span::after {
+    top: 0;
+    transform: rotate(90deg);
+  }
+  #menu__toggle2:checked ~ .menu__box2 {
+    visibility: visible;
+    right: 0;
+  }
 
-.mobile-btn {
-    display: inline-block;
-    
+
+
+  /* скрываем чекбокс */
+#menu__toggle2 {
+    opacity: 0;
+  }
+  /* стилизуем кнопку */
+.menu__btn2 {
+    display: flex; /* используем flex для центрирования содержимого */
+    align-items: center;  /* центрируем содержимое кнопки */
+    position: fixed;
+    top: 5px;
+    right: 20px;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    z-index: 1;
+}
+/* добавляем "гамбургер" */
+.menu__btn2 > span,
+.menu__btn2 > span::before,
+.menu__btn2 > span::after {
+display: block;
+position: absolute;
+width: 100%;
+height: 2px;
+background-color: #616161;
+}
+.menu__btn2 > span::before {
+content: '';
+top: -8px;
+}
+.menu__btn2 > span::after {
+    content: '';
+    top: 8px;
 }
 
-.mobile-btn img{
-    width: 30px;
-}
 
+  /* контейнер меню */
+.menu__box2 {
+    display: grid;
+    position: fixed;
+    visibility: hidden;
+    top: 0;
+    right: -100px;
+    height: 100%;
+    margin: 0;
+    padding: 80px 0;
+    list-style: none;
+    background-color: #ECEFF1;
+    box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
+  }
+  /* элементы меню */
+  .menu-link {
+    display: block;
+    padding: 12px 24px;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .menu__item:hover {
+    background-color: #CFD8DC;
+  }

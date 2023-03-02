@@ -5,7 +5,6 @@
 [class*="col-"] {
     float: left;
     padding: 15px;
-    border: 1px solid red;
   }
 
 .row::after {
@@ -16,42 +15,21 @@
 
 
 
-.header {
-    background-color: #9933cc;
-    color: #ffffff;
-    padding: 15px;
-  }
-  
-.menu ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-.menu li {
-    padding: 8px;
-    margin-bottom: 7px;
-    background-color: #4CAF50;
-    color: #ffffff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
-  
-.menu li:hover {
-    background-color: #45a249;
-  }
-.menu a {
-  color: #ffffff;
-  text-decoration: none;
-}
-
 /* For mobile phones: */
 [class*="col-"] {
     width: 100%;
   }
-.col-ps-3 {
+.col-ps-2 {
   display: none;
 }
-  
+
+.navbar-nav {
+  display: none;
+}
+
+.hamburger-menu,.hamburger-sidebar {
+  display: block;
+}
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
@@ -90,7 +68,7 @@
 @media only screen and (min-width: 768px) {
   .col-t-1 {width: 8.33%;}
   .col-t-2 {width: 16.66%;}
-  .col-t-3 {width: 25%;display: block;}
+  .col-t-3 {width: 25%;}
   .col-t-4 {width: 33.33%;}
   .col-t-5 {width: 41.66%;}
   .col-t-6 {width: 50%;}
@@ -105,8 +83,8 @@
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
   .col-l-1 {width: 8.33%;}
-  .col-l-2 {width: 16.66%;}
-  .col-l-3 {width: 25%; display: block;}
+  .col-l-2 {width: 16.66%;display: block;}
+  .col-l-3 {width: 25%;}
   .col-l-4 {width: 33.33%;}
   .col-l-5 {width: 41.66%;}
   .col-l-6 {width: 50%;}
@@ -116,6 +94,9 @@
   .col-l-10 {width: 83.33%;}
   .col-l-11 {width: 91.66%;}
   .col-l-12 {width: 100%;}
+  .mobile-btn{display: none;}
+  .navbar-nav{display: block;}
+  .hamburger-menu,.hamburger-sidebar{display: none;}
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */

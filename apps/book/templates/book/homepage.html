@@ -10,58 +10,77 @@
     <link rel="stylesheet" href="{% static 'book/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'book/css/media.css' %}">
     {% block css %}
-
+    
     {% endblock %}
 </head>
 <body>
-
-
     {% block navbar  %}
-        <header> 
-            <div class="container">
-                <div class="nav">
-                    
-                    <div class='mobile-btn a-nav'>
-                            <img src='{% static "book/list.svg" %}' >
-                    </div>
-                    <a class='a-nav active' href="{% url 'index' %}">Главная</a>
-
-                    {% if request.user.is_staff == True %}
-                        <a class='a-nav' href="{% url 'admin:index' %}">Админ панель</a>
-                    {% endif %}
-
-                    <form action="{% url 'search_book' %}" class="search-form">
-                        <input class="search" type='text', name="key" placeholder='Введите текст'>
-                        <button type="submit">Поиск</button>
-                    </form>
-                    {% if not request.user.is_authenticated %}
-                        <div>
-                            <a href="{% url 'login' %}"><button class='button-green' >Войти</button></a>
-                        </div>
-                    {% else %}
-                        <a href="{% url 'logout' %}"><button class='button-green' >Выйти</button></a>
-                    {% endif %}
-                </div>
+    <nav class="navbar">
+        <div class="container-fluid">
+          {% comment %} <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+            <span class="navbar-toggler-icon"></span>
+          </button> {% endcomment %}
+          <div class="menu" id="navbarNavAltMarkup">
+            <div style='display:flex;'>
+            <div class="hamburger-sidebar">
+              <input id="menu__toggle" type="checkbox" />
+              <label class="menu__btn" for="menu__toggle">
+                <span></span>
+              </label>
+              <ul class="menu__box sidebar">
+                  {% for c in cats %}
+                    <li class='link-sidebar'><a href='{{c.get_absolute_url}}' >{{c.title}}</a></li>
+                  {% endfor %}
+              </ul>
             </div>
-        </header>
+            <div class="hamburger-menu">
+              <input id="menu__toggle2" type="checkbox" />
+              <label class="menu__btn2" for="menu__toggle2">
+                <span></span>
+              </label>
+              <ul class="menu__box2" >
+                  <a class="menu-link" aria-current="page" href="{% url 'index' %}">Главная</a>
+                  <a class="menu-link" href="{% url 'admin:index' %}">Админ панель</a>
+                  <a class="menu-link" href="#">Pricing</a>
+                  <a class="menu-link" href='#'>Disabled</a>
+              </ul>
+            </div>
+          </div>
+            <div class="navbar-nav">
+              <a class="nav-link" aria-current="page" href="{% url 'index' %}">Главная</a>
+              <a class="nav-link" href="{% url 'admin:index' %}">Админ панель</a>
+              <a class="nav-link" href="#">Pricing</a>
+              <a class="nav-link" href='#'>Disabled</a>
+            </div>
+          </div>
+        </div>
+      </nav>
     {% endblock  %}
+
+
     <div class="row">
-        <div class="col-l-3 col-ps-3 menu">
+        <div class="col-l-2 col-ps-2" style='margin-top:40px;'>
+
+
+          
+
+
             {% block sidebar %}
-                    <ul>
+                    <ul class='sidebar'>
                         {% for c in cats %}
-                        <a href='{{c.get_absolute_url}}' ><li>{{c.title}}</li></a>
+                          <li class='link-sidebar'><a href='{{c.get_absolute_url}}' >{{c.title}}</a></li>
                         {% endfor %}
                       </ul>
             {% endblock sidebar %}
         </div> <!-- 25% -->
-        <div class="col-l-9 col-p-12">
+        <div class="col-l-9 col-p-12" style='margin-top:40px;'>
             {% block content %}
         
             {% endblock %}
     </div> <!-- 75% -->
       </div>
 
-    <script src='{% static "book/js/main.js" %}'></script>      
+    <script src='{% static "book/js/main.js" %}'></script>   
+
 </body>
 </html>
