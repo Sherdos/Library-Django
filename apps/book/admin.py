@@ -33,7 +33,7 @@ class AuthorAdmin(admin.ModelAdmin):
     list_filter = ('name',)
     prepopulated_fields = {'slug' : ('name', )}
     search_fields = ('name',)
-    fields = ('name','slug','description','get_html_photo','image')
+    fields = ('name','slug','description','get_html_photo','image','dowl')
     readonly_fields = ('get_html_photo',)
 
     def get_html_photo(self,object):

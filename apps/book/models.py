@@ -13,6 +13,7 @@ class Books(models.Model):
     category = models.ForeignKey('Category', verbose_name='Категория', on_delete=models.CASCADE,related_name='category_book')
     create = models.DateTimeField(auto_now_add=True,verbose_name='Дата добавление',)
     date_issue = models.DateField(verbose_name='Дата выпуска',null=True)
+    dowl = models.BooleanField(default=True, verbose_name='Разрешение на скачевание')
     
     class Meta:
         verbose_name = 'Книга'
