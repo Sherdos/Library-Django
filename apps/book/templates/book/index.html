@@ -5,7 +5,12 @@
     {% endblock %}
 
 {% block content %}
-    <h1> Новинки </h1>
+    
+    {% if cat %}
+    <h1 class='title'> Книги по категории {{cat}} </h1>
+    {% else %}
+    <h1 class='title'> Новинки  </h1>
+    {% endif %}
             <div class='cards'>
                 {% for book in books %}
                     <div class="card">

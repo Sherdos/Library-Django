@@ -45,6 +45,8 @@
   .col-ps-10 {width: 83.33%;}
   .col-ps-11 {width: 91.66%;}
   .col-ps-12 {width: 100%;}
+  .title { font-size: medium; }
+  .info { font-size: small;}
 }
 
 

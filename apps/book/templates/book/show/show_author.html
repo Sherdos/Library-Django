@@ -1,16 +1,17 @@
 {% extends 'book/show/show.html' %}
-    {% block href %}
-        <li>{{ author.name }}</li>
-    {% endblock href %}
 
-{% block content %}
-    <div class="card_detail">
-        <div class="book_img">
-            <img src='{{author.image.url}}'>
+
+   
+    
+    {% block content %}
+        <div class='row'>
+            <div class="book_img col-l-6 col-p-12">
+                <img src='{{author.image.url}}'>
+            </div>
+            <div class='col-l-6'>
+                <h1 class='title'>{{author}}</h1>
+                <br>
+                {{author.description|linebreaks}}
+            </div>
         </div>
-        <div class="book_text">
-            <h1>{{author.name}}</h1>
-            {{author.description|linebreaks}}
-        </div>
-    </div>
-{% endblock %}
+    {% endblock %}

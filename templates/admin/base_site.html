@@ -3,6 +3,8 @@
 
 {% block extrastyle %}
 <link rel='stylesheet' href='{% static "css/admin.css" %}' >
+<link rel='stylesheet' href='{% static "book/css/media.css" %}' >
+<link rel='stylesheet' href='{% static "book/css/style.css" %}' >
 {% endblock extrastyle %}
 
 {% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
@@ -12,16 +14,36 @@
 {% endblock %}
 
 {% block nav-global %}
-<header > 
-    <div class="container">
-        <div class="nav">
-                <a class='a-nav' href="{% url 'index' %}">Главная</a>
-                <a class='a-nav' href="{% url 'about' %}">О сайте</a>
-                <a class='a-nav active' href="{% url 'admin:index' %}">Админ панель</a>
-            <a href="{% url 'logout' %}"><button class='button-green' >Выйти</button></a>
+    <nav class="navbar" style='background-color:#4CAF50; position: absolute;'>
+        <div class="container-fluid">
+          {% comment %} <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+            <span class="navbar-toggler-icon"></span>
+          </button> {% endcomment %}
+          <div class="menu" id="navbarNavAltMarkup">
+            <div style='display:flex;'>
+            <div class="hamburger-menu">
+              <input id="menu__toggle2" type="checkbox" />
+              <label class="menu__btn2" for="menu__toggle2">
+                <span><img scr='{% static "book/menu.svg" %}'></span>
+              </label>
+              <ul class="menu__box2" >
+                  <a class="menu-link" aria-current="page" href="{% url 'index' %}">Главная</a>
+                  <a class="menu-link" href="{% url 'admin:index' %}">Админ панель</a>
+                  <a class="menu-link"  href="#">Pricing</a>
+                  <a class="menu-link" href='{% url 'login' %}'>Войти</a>
+                  <a class="menu-link" href='{% url 'register' %}'>Регистрация</a>
+              </ul>
+            </div>
+          </div>
+            <div class="navbar-nav">
+              <a class="nav-link" aria-current="page" href="{% url 'index' %}">Главная</a>
+              <a class="nav-link" href="{% url 'admin:index' %}">Админ панель</a>
+              <a class="nav-link" style='' href="{% url 'login' %}">Войти</a>
+              <a class="nav-link" style='' href="{% url 'register' %}">Регистрация</a>
+            </div>
+          </div>
         </div>
-    </div>
-</header>
+      </nav>
 
 
 {% endblock %}
