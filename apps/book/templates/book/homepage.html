@@ -29,7 +29,9 @@
               </label>
               <ul class="menu__box sidebar">
                   {% for c in cats %}
+                    {% if c.count > 0 %}
                     <li class='link-sidebar'><a href='{{c.get_absolute_url}}' >{{c.title}}</a></li>
+                    {% endif %}                  
                   {% endfor %}
               </ul>
             </div>
@@ -41,17 +43,26 @@
               <ul class="menu__box2" >
                   <a class="menu-link" aria-current="page" href="{% url 'index' %}">Главная</a>
                   <a class="menu-link" href="{% url 'admin:index' %}">Админ панель</a>
-                  <a class="menu-link"  href="#">Pricing</a>
-                  <a class="menu-link" href='{% url 'login' %}'>Войти</a>
-                  <a class="menu-link" href='{% url 'register' %}'>Регистрация</a>
+                  {% if request.user.is_authenticated %}
+                    <a class="menu-link"  href="{% url 'my_book' request.user.id %}">Мои книги</a>
+                    <a class="menu-link" href='{% url 'logout' %}'>Выйти</a>
+                  {% else %}
+                    <a class="menu-link" href='{% url 'login' %}'>Войти</a>
+                    <a class="menu-link" href='{% url 'register' %}'>Регистрация</a>
+                  {% endif %}
               </ul>
             </div>
           </div>
             <div class="navbar-nav">
               <a class="nav-link" aria-current="page" href="{% url 'index' %}">Главная</a>
               <a class="nav-link" href="{% url 'admin:index' %}">Админ панель</a>
+              {% if request.user.is_authenticated %}  
+              <a class="nav-link"  href="{% url 'my_book' request.user.id %}">Мои книги</a>
+              <a class="nav-link" style='float:right' href="{% url 'logout' %}">Выйти</a>
+              {% else %}
               <a class="nav-link" style='float:right' href="{% url 'login' %}">Войти</a>
               <a class="nav-link" style='float:right' href="{% url 'register' %}">Регистрация</a>
+              {% endif %}
             </div>
           </div>
         </div>

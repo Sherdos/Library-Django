@@ -146,3 +146,5 @@ CACHES = {
         'LOCATION':os.path.join(BASE_DIR, 'coolsite_cache'),
     }
 }
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'

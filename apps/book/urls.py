@@ -9,6 +9,7 @@ urlpatterns = [
     path('book/<slug:book_slug>/',      ShowBookView.as_view(),       name='show_book'),
     path('category/<slug:cat_slug>/',   BookCategoryView.as_view(),   name='category_book_index'),
     path('serch/',                      SearchBookView.as_view(),     name='search_book'),
+    path("my_book/<int:pk>/",    MyBookView.as_view(),         name="my_book"),
     
     # auth
     path('login/',                      LoginUserView.as_view(),      name='login'),
@@ -17,7 +18,7 @@ urlpatterns = [
     
     # other
     path('about/',                      about,                        name='about'),
-    path('book/<int:id>/<str:str>/',    dow,                          name='dow'),
+    path('book/<int:id>/',    read,                          name='read'),
     
     
     path('author/<slug:slug>/',         ShowAuthor.as_view(),         name='show_author')

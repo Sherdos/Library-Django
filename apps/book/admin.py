@@ -18,7 +18,7 @@ class BookAdmin(admin.ModelAdmin):
     list_editable = ('category',)
     prepopulated_fields = {'slug' : ('title', )}
     search_fields = ('title',)
-    fields = ('title','slug','get_html_photo','category','description','book','author','image','date_issue','create')
+    fields = ('title','slug','get_html_photo','category','description','book','author','image','date_issue','create','buyer')
     readonly_fields = ('date_issue','create','get_html_photo')
 
     def get_html_photo(self,object):

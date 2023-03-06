@@ -18,10 +18,10 @@
                             <img src="{{book.image.url}}" alt="...">
                         </div>
                         <div class="card_body">
-                            <h5>{{ book.title|truncatechars:20 }}</h5>
+                            <a href='{{ book.get_absolute_url }}' style='color:black; text-decoration:none;'><h5>{{ book.title|truncatechars:20 }}</h5></a>
                             <p>{{ book.description|truncatechars:40 }}</p>
                             <div class="card_buttom">
-                                <a  href="{{ book.get_absolute_url }}"><button class="btn">Читать</button></a>
+                                <a  href="{{ book.get_absolute_url }}"><button class="btn">Смотреть</button></a>
                             </div>
                         </div>
                     </div>

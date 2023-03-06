@@ -10,10 +10,10 @@ menu = [
 class DataMixin:
     def get_user_context(self, **kwargs):
         context = kwargs
-        # cats = cache.get('cats')
-        # if not cats:
-        cats = Category.objects.annotate(count=Count('category_book'))
-            # cache.set('cats', cats, 60)
+        cats = cache.get('cats')
+        if not cats:
+            cats = Category.objects.annotate(count=Count('category_book'))
+            cache.set('cats', cats, 60)
         context['cats']=cats
         context['menu']=menu
         if 'cat_selected' not in context:

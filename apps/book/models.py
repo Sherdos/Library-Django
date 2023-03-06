@@ -1,5 +1,6 @@
 from django.urls import reverse
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -13,7 +14,7 @@ class Books(models.Model):
     category = models.ForeignKey('Category', verbose_name='Категория', on_delete=models.CASCADE,related_name='category_book')
     create = models.DateTimeField(auto_now_add=True,verbose_name='Дата добавление',)
     date_issue = models.DateField(verbose_name='Дата выпуска',null=True)
-    dowl = models.BooleanField(default=True, verbose_name='Разрешение на скачевание')
+    buyer = models.ManyToManyField(User, verbose_name='покупатели')
     
     class Meta:
         verbose_name = 'Книга'

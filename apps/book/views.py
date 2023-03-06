@@ -54,6 +54,8 @@ class BookCategoryView(DataMixin,ListView):
 
 
 
+    
+
 class SearchBookView(DataMixin, ListView):
     template_name = 'book/index.html'
     context_object_name = 'books'
@@ -85,6 +87,14 @@ class ShowBookView(DataMixin, DetailView):
         context.update(c_def)
         return context
     
+    def post(self, request, *args, **kwargs):
+        book = Books.objects.get(id=request.POST.get('book_id')) 
+        if 'buy' in request.POST:
+            book.buyer.add(request.user)
+        elif 'read' in request.POST:
+            return FileResponse(book.book.open())
+        return redirect('show_book', book.slug )
+            
     
     
     
@@ -100,6 +110,16 @@ class ShowAuthor(DataMixin, DetailView):
         return context
     
     
+class MyBookView(DataMixin, DetailView):
+    model = User
+    template_name = 'book/my_book.html'
+    content_object_name = 'user'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Мои книги')
+        context.update(c_def)
+        return context
 
 
 # CreateView
@@ -143,16 +163,11 @@ class LoginUserView(DataMixin, LoginView):
 
 
 
-def dow(request,id,str):
-    if 'dow' in str:
-        book = Books.objects.get(id=id)
-        return FileResponse(book.book.open(), as_attachment=True)
-    elif 'read' in str:
-        book = Books.objects.get(id=id)
-        return FileResponse(book.book.open(), content_type='application/pdf')
+def read(request,id):
+    book = Books.objects.get(id=id)
+    return FileResponse(book.book.open())
   
 
-  
 def about(request):
     context = {
         'title':'О сайте',
