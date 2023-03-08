@@ -6,7 +6,6 @@ from .models import *
 from .forms import *
 from .utils import *
 from django.contrib.auth.views import LoginView
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout, login
 from django.core.cache import cache
 # Create your views here.

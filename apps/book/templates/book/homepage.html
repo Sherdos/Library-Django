@@ -8,18 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}} </title>
     <link rel="stylesheet" href="{% static 'book/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'book/css/media.css' %}">
     {% block css %}
     
     {% endblock %}
+    <link rel="stylesheet" href="{% static 'book/css/media.css' %}">
 </head>
 <body>
     {% block navbar  %}
     <nav class="navbar">
         <div class="container-fluid">
-          {% comment %} <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-            <span class="navbar-toggler-icon"></span>
-          </button> {% endcomment %}
           <div class="menu" id="navbarNavAltMarkup">
             <div style='display:flex;'>
             <div class="hamburger-sidebar">
@@ -42,7 +39,9 @@
               </label>
               <ul class="menu__box2" >
                   <a class="menu-link" aria-current="page" href="{% url 'index' %}">Главная</a>
-                  <a class="menu-link" href="{% url 'admin:index' %}">Админ панель</a>
+                  {% if request.user.is_superuser %}
+                    <a class="menu-link" href="{% url 'admin:index' %}">Админ панель</a>
+                  {% endif %}
                   {% if request.user.is_authenticated %}
                     <a class="menu-link"  href="{% url 'my_book' request.user.id %}">Мои книги</a>
                     <a class="menu-link" href='{% url 'logout' %}'>Выйти</a>
@@ -55,7 +54,9 @@
           </div>
             <div class="navbar-nav">
               <a class="nav-link" aria-current="page" href="{% url 'index' %}">Главная</a>
-              <a class="nav-link" href="{% url 'admin:index' %}">Админ панель</a>
+              {% if request.user.is_superuser %}
+                <a class="nav-link" href="{% url 'admin:index' %}">Админ панель</a>
+              {% endif %}
               {% if request.user.is_authenticated %}  
               <a class="nav-link"  href="{% url 'my_book' request.user.id %}">Мои книги</a>
               <a class="nav-link" style='float:right' href="{% url 'logout' %}">Выйти</a>
@@ -63,6 +64,10 @@
               <a class="nav-link" style='float:right' href="{% url 'login' %}">Войти</a>
               <a class="nav-link" style='float:right' href="{% url 'register' %}">Регистрация</a>
               {% endif %}
+              <form class='search' action='{% url 'search_book' %}' style='display: inline-block;float: right;'>
+                <input name='key' class='input-search' style='width: 200px;height: 25px;' >
+                <button class='' style='padding: 4px;color: white;background: #4CAF50;border: none;' >Поиск</botton>
+              </form>
             </div>
           </div>
         </div>
