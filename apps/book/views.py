@@ -86,13 +86,7 @@ class ShowBookView(DataMixin, DetailView):
         context.update(c_def)
         return context
     
-    def post(self, request, *args, **kwargs):
-        book = Books.objects.get(id=request.POST.get('book_id')) 
-        if 'buy' in request.POST:
-            book.buyer.add(request.user)
-        elif 'read' in request.POST:
-            return FileResponse(book.book.open())
-        return redirect('show_book', book.slug )
+
             
     
     
@@ -160,18 +154,9 @@ class LoginUserView(DataMixin, LoginView):
 
 
 
-
-
-def read(request,id):
-    book = Books.objects.get(id=id)
-    return FileResponse(book.book.open())
   
 
-def about(request):
-    context = {
-        'title':'О сайте',
-    }
-    return render(request, 'book/index.html', context)
+
 
 
 
@@ -179,3 +164,15 @@ def logout_user(request):
     logout(request)
     return redirect('index')
 
+
+def buy(request,book_id):
+    book = Books.objects.get(id=book_id) 
+    book.buyer.add(request.user)
+    return redirect('show_book', book.slug )
+
+
+def read(request, book_id):
+    book=Books.objects.get(id=book_id) 
+    if request.user in book.buyer.all():
+        return FileResponse(book.book.open())
+    return redirect('index')
