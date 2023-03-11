@@ -27,7 +27,7 @@ class IndexView(DataMixin, ListView):
         cach = cache.get('books')
         if not cach:
             cach = Books.objects.all().order_by('-id')
-            cache.set('books', cach, 60)
+            cache.set('books', cach, 60*4)
         return cach
 
 
@@ -48,12 +48,10 @@ class BookCategoryView(DataMixin,ListView):
         cach = cache.get('books'+str(self.kwargs['cat_slug']))
         if not cach:
             cach = Books.objects.filter(category__slug=self.kwargs['cat_slug'])
-            cache.set('books'+str(self.kwargs['cat_slug']), cach, 60)
+            cache.set('books'+str(self.kwargs['cat_slug']), cach, 60*4)
         return cach
 
 
-
-    
 
 class SearchBookView(DataMixin, ListView):
     template_name = 'book/index.html'
@@ -85,10 +83,6 @@ class ShowBookView(DataMixin, DetailView):
         c_def = self.get_user_context(title=context['book'], cat_selected=context['book'].category_id)
         context.update(c_def)
         return context
-    
-
-            
-    
     
     
 class ShowAuthor(DataMixin, DetailView):
@@ -131,7 +125,7 @@ class RegisterUserView(DataMixin, CreateView):
     
     def form_valid(self, form):
         user = form.save()
-        login(self.request, user)
+        login(self.request, user,backend='django.contrib.auth.backends.ModelBackend')
         return redirect('index')
         
         
@@ -149,16 +143,6 @@ class LoginUserView(DataMixin, LoginView):
     
     def get_success_url(self):
         return reverse_lazy('index')
-
-    
-
-
-
-  
-
-
-
-
 
 def logout_user(request):
     logout(request)

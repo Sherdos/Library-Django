@@ -1,5 +1,6 @@
 {% extends 'book/homepage.html' %}
 {% load static %}
+{% load socialaccount %}
     {% block css %}
     <link rel="stylesheet" href="{% static 'book/css/auth.css' %}">
     {% endblock %}
@@ -36,7 +37,10 @@
         {% else %}
         <p>У вас нет аккаунт? <a href="{% url 'register' %}">Регистрация</a>.</p>
         {% endif %}
-    </div>
-</form>
+        <br>
+        <p>Войти через</p>
+        <a href="{% provider_login_url 'google'%}?next=/">Google</a>
+        </div>
+    </form>
+    {% endblock %}
 
-{% endblock %}

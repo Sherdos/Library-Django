@@ -19,56 +19,77 @@
         <div class="container-fluid">
           <div class="menu" id="navbarNavAltMarkup">
             <div style='display:flex;'>
-            <div class="hamburger-sidebar">
-              <input id="menu__toggle" type="checkbox" />
-              <label class="menu__btn" for="menu__toggle">
-                <span></span>
-              </label>
-              <ul class="menu__box sidebar">
-                  {% for c in cats %}
-                    {% if c.count > 0 %}
-                    <li class='link-sidebar'><a href='{{c.get_absolute_url}}' >{{c.title}}</a></li>
-                    {% endif %}                  
-                  {% endfor %}
-              </ul>
+              <div class="hamburger-sidebar">
+
+                <input id="menu__toggle" type="checkbox" />
+
+                <label class="menu__btn" for="menu__toggle">
+                  <span></span>
+                </label>
+
+                <ul class="menu__box sidebar">
+
+                    {% for c in cats %}
+                      {% if c.count > 0 %}
+                        <li class='link-sidebar'><a href='{{c.get_absolute_url}}' >{{c.title}}</a></li>
+                      {% endif %}                  
+                    {% endfor %}
+
+                </ul>
+
+              </div>
+
+              <div class="hamburger-menu">
+
+                <input id="menu__toggle2" type="checkbox" />
+
+                <label class="menu__btn2" for="menu__toggle2">
+                  <span><img scr='{% static "book/menu.svg" %}'></span>
+                </label>
+
+                <ul class="menu__box2" >
+
+                    <a class="menu-link" aria-current="page" href="{% url 'index' %}">Главная</a>
+
+                    {% if request.user.is_superuser %}
+                      <a class="menu-link" href="{% url 'admin:index' %}">Админ панель</a>
+                    {% endif %}
+
+                    {% if request.user.is_authenticated %}
+                      <a class="menu-link"  href="{% url 'my_book' request.user.id %}">Мои книги</a>
+                      <a class="menu-link" href='{% url 'logout' %}'>Выйти</a>
+                    {% else %}
+                      <a class="menu-link" href='{% url 'login' %}'>Войти</a>
+                      <a class="menu-link" href='{% url 'register' %}'>Регистрация</a>
+                    {% endif %}
+
+                </ul>
+
+              </div>
             </div>
-            <div class="hamburger-menu">
-              <input id="menu__toggle2" type="checkbox" />
-              <label class="menu__btn2" for="menu__toggle2">
-                <span><img scr='{% static "book/menu.svg" %}'></span>
-              </label>
-              <ul class="menu__box2" >
-                  <a class="menu-link" aria-current="page" href="{% url 'index' %}">Главная</a>
-                  {% if request.user.is_superuser %}
-                    <a class="menu-link" href="{% url 'admin:index' %}">Админ панель</a>
-                  {% endif %}
-                  {% if request.user.is_authenticated %}
-                    <a class="menu-link"  href="{% url 'my_book' request.user.id %}">Мои книги</a>
-                    <a class="menu-link" href='{% url 'logout' %}'>Выйти</a>
-                  {% else %}
-                    <a class="menu-link" href='{% url 'login' %}'>Войти</a>
-                    <a class="menu-link" href='{% url 'register' %}'>Регистрация</a>
-                  {% endif %}
-              </ul>
-            </div>
-          </div>
+
             <div class="navbar-nav">
-              <a class="nav-link" aria-current="page" href="{% url 'index' %}">Главная</a>
-              {% if request.user.is_superuser %}
-                <a class="nav-link" href="{% url 'admin:index' %}">Админ панель</a>
-              {% endif %}
-              {% if request.user.is_authenticated %}  
-              <a class="nav-link"  href="{% url 'my_book' request.user.id %}">Мои книги</a>
-              <a class="nav-link" style='float:right' href="{% url 'logout' %}">Выйти</a>
+              {% for m in menu.left %}
+                <a class="nav-link" aria-current="page" href="{% url m.url_name %}">{{m.title}}</a>
+              {% endfor %}
+
+              {% for m in menu.right %}
+              <a class="nav-link" style='float:right' href="{% url m.url_name %}">{{m.title}}</a>
+              {% endfor %}
+{% comment %} 
+                <a class="nav-link" style='float:right' href="{% url 'logout' %}">Выйти</a>
               {% else %}
-              <a class="nav-link" style='float:right' href="{% url 'login' %}">Войти</a>
-              <a class="nav-link" style='float:right' href="{% url 'register' %}">Регистрация</a>
-              {% endif %}
+                <a class="nav-link" style='float:right' href="{% url 'login' %}">Войти</a>
+                <a class="nav-link" style='float:right' href="{% url 'register' %}">Регистрация</a>
+              {% endif %} {% endcomment %}
+
               <form class='search' action='{% url 'search_book' %}' style='display: inline-block;float: right;'>
                 <input name='key' class='input-search' style='width: 200px;height: 25px;' >
                 <button class='' style='padding: 4px;color: white;background: #4CAF50;border: none;' >Поиск</botton>
               </form>
+
             </div>
+
           </div>
         </div>
       </nav>
@@ -76,28 +97,24 @@
 
 
     <div class="row">
-        <div class="col-l-2 col-ps-2" style='margin-top:40px;'>
-
-
-          
-
-
-            {% block sidebar %}
-                    <ul class='sidebar'>
-                        {% for c in cats %}
-                          {% if c.count > 0 %}
-                          <li class='link-sidebar'><a href='{{c.get_absolute_url}}' >{{c.title}}</a></li>
-                          {% endif %}
-                        {% endfor %}
-                      </ul>
-            {% endblock sidebar %}
-        </div> <!-- 25% -->
-        <div class="col-l-9 col-p-12" style='margin-top:40px;'>
-            {% block content %}
-        
-            {% endblock %}
-    </div> <!-- 75% -->
+      <div class="col-l-2 col-ps-2" style='margin-top:40px;'>
+          {% block sidebar %}
+              <ul class='sidebar'>
+                  {% for c in cats %}
+                    {% if c.count > 0 %}
+                    <li class='link-sidebar'><a href='{{c.get_absolute_url}}' >{{c.title}}</a></li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+          {% endblock sidebar %}
       </div>
+
+      <div class="col-l-9 col-p-12" style='margin-top:40px;'>
+          {% block content %}
+      
+          {% endblock %}
+      </div> 
+    </div>
 
     <script src='{% static "book/js/main.js" %}'></script>   
 
