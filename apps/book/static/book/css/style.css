@@ -107,6 +107,7 @@
   #menu__toggle:checked ~ .menu__box {
     visibility: visible;
     left: 0;
+        overflow: scroll;
   }
 
 
@@ -195,6 +196,7 @@ new
   #menu__toggle2:checked ~ .menu__box2 {
     visibility: visible;
     right: 0;
+    
   }
 
 

@@ -27,7 +27,7 @@ class IndexView(DataMixin, ListView):
         cach = cache.get('books')
         if not cach:
             cach = Books.objects.all().order_by('-id')
-            cache.set('books', cach, 60*4)
+            cache.set('books', cach, 60)
         return cach
 
 
@@ -48,10 +48,12 @@ class BookCategoryView(DataMixin,ListView):
         cach = cache.get('books'+str(self.kwargs['cat_slug']))
         if not cach:
             cach = Books.objects.filter(category__slug=self.kwargs['cat_slug'])
-            cache.set('books'+str(self.kwargs['cat_slug']), cach, 60*4)
+            cache.set('books'+str(self.kwargs['cat_slug']), cach, 60)
         return cach
 
 
+
+    
 
 class SearchBookView(DataMixin, ListView):
     template_name = 'book/index.html'
@@ -83,6 +85,16 @@ class ShowBookView(DataMixin, DetailView):
         c_def = self.get_user_context(title=context['book'], cat_selected=context['book'].category_id)
         context.update(c_def)
         return context
+    
+    def post(self, request, *args, **kwargs):
+        book = Books.objects.get(id=request.POST.get('book_id')) 
+        if 'buy' in request.POST:
+            book.buyer.add(request.user)
+        elif 'read' in request.POST:
+            return FileResponse(book.book.open())
+        return redirect('show_book', book.slug )
+            
+    
     
     
 class ShowAuthor(DataMixin, DetailView):
@@ -125,7 +137,7 @@ class RegisterUserView(DataMixin, CreateView):
     
     def form_valid(self, form):
         user = form.save()
-        login(self.request, user,backend='django.contrib.auth.backends.ModelBackend')
+        login(self.request, user)
         return redirect('index')
         
         
@@ -144,19 +156,26 @@ class LoginUserView(DataMixin, LoginView):
     def get_success_url(self):
         return reverse_lazy('index')
 
+    
+
+
+
+
+
+def read(request,id):
+    book = Books.objects.get(id=id)
+    return FileResponse(book.book.open())
+  
+
+def about(request):
+    context = {
+        'title':'О сайте',
+    }
+    return render(request, 'book/index.html', context)
+
+
+
 def logout_user(request):
     logout(request)
     return redirect('index')
 
-
-def buy(request,book_id):
-    book = Books.objects.get(id=book_id) 
-    book.buyer.add(request.user)
-    return redirect('show_book', book.slug )
-
-
-def read(request, book_id):
-    book=Books.objects.get(id=book_id) 
-    if request.user in book.buyer.all():
-        return FileResponse(book.book.open())
-    return redirect('index')

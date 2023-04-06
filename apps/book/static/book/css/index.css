@@ -31,12 +31,13 @@ box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   
 .card_body {
     padding: 30px 16px;
-    /* height: 200px; */
+    height: 200px; 
     background-color: rgb(229 229 229);
 }
 
 .card img {
     width: 130px;
+  height: 190px;
 }
 
 .card_img {

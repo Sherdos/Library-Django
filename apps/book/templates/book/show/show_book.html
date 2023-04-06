@@ -8,13 +8,15 @@
         <div class="book_img col-l-6 col-p-12">
             <img src='{{book.image.url}}'>
             {% if request.user.is_authenticated %}
-                <div  style='display:flex'>
+                <form method='post' style='display:flex'>
+                    {% csrf_token %}
+                    <input name='book_id' type='hidden' value='{{book.id}}'>
                     {% if request.user in book.buyer.all %}
-                        <a href='{% url "read" book.id %}'><button class="btn button" name='read' type="submit" >Читать</button></a>
+                        <button class="btn button" name='read' type="submit" >Читать</button>
                     {% else %}
-                        <a href='{% url "buy" book.id %}'><button class="btn button" name='buy' type="submit" >Купить</button></a>
+                        <button class="btn button" name='buy' type="submit" >Купить</button>
                     {% endif %}
-                </div>
+                </form>
             {% else %}
                 <p style='color:red; margin-top:10px; text-align:center; font-size:10px;' >  Авторизуйтесь чтобы Читать книги или записи </p>
             {% endif %}

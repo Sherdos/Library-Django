@@ -1,6 +1,5 @@
 {% extends 'book/homepage.html' %}
 {% load static %}
-{% load socialaccount %}
     {% block css %}
     <link rel="stylesheet" href="{% static 'book/css/auth.css' %}">
     {% endblock %}
@@ -23,24 +22,21 @@
         <div class="form-error">{{f.errors}}</div>
             <p><label class="form-label" for="{{f.id_for_label}}"><b>{{f.label}}</b></label>{{f}}</p>
         {% endfor %}
-        <hr>
+        <!-- <hr>
         {% if title == 'Регистрация' %}
         <p>Создавая аккаунт, вы соглашаетесь с нашими <a href="#">Условиями и конфиденциальностью</a>.</p>
         {% else %}
         <p>Вы забыли пароль? <a href="#">Сброс пароля</a>.</p>
-        {% endif %}
+        {% endif %} -->
         <button type="submit" class="btn" >{{ title }}</button>
     </div>
-    <div class="con signin">
+    <!-- <div class="con signin">
         {% if title == 'Регистрация' %}
         <p>У вас уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>.</p>
         {% else %}
         <p>У вас нет аккаунт? <a href="{% url 'register' %}">Регистрация</a>.</p>
         {% endif %}
-        <br>
-        <p>Войти через</p>
-        <a href="{% provider_login_url 'google'%}?next=/">Google</a>
-        </div>
-    </form>
-    {% endblock %}
+    </div> -->
+</form>
 
+{% endblock %}
