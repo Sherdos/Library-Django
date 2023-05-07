@@ -17,42 +17,26 @@
     {% block navbar  %}
     <nav class="navbar">
         <div class="container-fluid">
-          <div class="menu" id="navbarNavAltMarkup">
+          <div class="menu">
             <div style='display:flex;'>
-            <div class="hamburger-sidebar">
-              <input id="menu__toggle" type="checkbox" />
-              <label class="menu__btn" for="menu__toggle">
-                <span></span>
-              </label>
-              <ul class="menu__box sidebar">
-                  {% for c in cats %}
-                    {% if c.count > 0 %}
-                    <li class='link-sidebar'><a href='{{c.get_absolute_url}}' >{{c.title}}</a></li>
-                    {% endif %}                  
-                  {% endfor %}
-              </ul>
-            </div>
-            <div class="hamburger-menu">
-              <input id="menu__toggle2" type="checkbox" />
-              <label class="menu__btn2" for="menu__toggle2">
-                <span><img scr='{% static "book/menu.svg" %}'></span>
-              </label>
-              <ul class="menu__box2" >
-                  <a class="menu-link" aria-current="page" href="{% url 'index' %}">Главная</a>
-                  {% if request.user.is_superuser %}
-                    <a class="menu-link" href="{% url 'admin:index' %}">Админ панель</a>
-                  {% endif %}
-                  {% if request.user.is_authenticated %}
-                    <a class="menu-link"  href="{% url 'my_book' request.user.id %}">Мои книги</a>
-                    <a class="menu-link" href='{% url 'logout' %}'>Выйти</a>
-                  {% else %}
-                    <a class="menu-link" href='{% url 'login' %}'>Войти</a>
-                    <a class="menu-link" href='{% url 'register' %}'>Регистрация</a>
-                  {% endif %}
-              </ul>
-            </div>
+            
+            <!-- Меню-иконка -->
+            
+
+              <!-- Бургер-меню -->
+              <div class="burger-menu">
+                {% include 'book/burger_menu.html' %}
+              </div>
+
+              <div class="burger-menu-icon nav-link">
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+              </div>
           </div>
+
             <div class="navbar-nav">
+              <h1 class = 'nav-link' style='display:inline-block'>Libmed</h1>
               <a class="nav-link" aria-current="page" href="{% url 'index' %}">Главная</a>
               {% if request.user.is_superuser %}
                 <a class="nav-link" href="{% url 'admin:index' %}">Админ панель</a>
@@ -73,8 +57,6 @@
         </div>
       </nav>
     {% endblock  %}
-
-
     <div class="row">
         <div class="col-l-2 col-ps-2" style='margin-top:40px;'>
 

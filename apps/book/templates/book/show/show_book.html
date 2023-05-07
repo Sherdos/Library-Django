@@ -1,4 +1,5 @@
 {% extends 'book/show/show.html' %}
+{% load static %}
 
 
 
@@ -17,6 +18,8 @@
                         <button class="btn button" name='buy' type="submit" >Купить</button>
                     {% endif %}
                 </form>
+                <a href="{% url 'read' book.id %}">Читать книгу</a>
+
             {% else %}
                 <p style='color:red; margin-top:10px; text-align:center; font-size:10px;' >  Авторизуйтесь чтобы Читать книги или записи </p>
             {% endif %}

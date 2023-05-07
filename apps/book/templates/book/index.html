@@ -8,6 +8,8 @@
     
     {% if cat %}
     <h1 class='title'> Книги по категории {{cat}} </h1>
+    <a href="{% url 'fb2_reader' filename='/media/django.fb2' %}">Читать книгу</a>
+
     {% else %}
     <h1 class='title'> Новинки  </h1>
     {% endif %}

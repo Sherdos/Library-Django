@@ -41,10 +41,10 @@ INSTALLED_APPS = [
     'apps.book.apps.BookConfig',
     'django_cleanup.apps.CleanupConfig',
     "debug_toolbar",
-    'allauth', 
-    'allauth.account', # must
-    'allauth.socialaccount', # must
-    'allauth.socialaccount.providers.google', # new
+    # 'allauth', 
+    # 'allauth.account', # must
+    # 'allauth.socialaccount', # must
+    # 'allauth.socialaccount.providers.google', # new
 ]
 
 
@@ -180,7 +180,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend'
+    # 'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
 

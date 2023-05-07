@@ -27,7 +27,7 @@
   display: none;
 }
 
-.hamburger-menu,.hamburger-sidebar {
+.burger-menu-icon {
   display: block;
 }
 
@@ -98,7 +98,7 @@
   .col-l-12 {width: 100%;}
   .mobile-btn{display: none;}
   .navbar-nav{display: block;}
-  .hamburger-menu,.hamburger-sidebar{display: none;}
+  .burger-menu-icon{display: none;}
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
