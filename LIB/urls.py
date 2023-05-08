@@ -7,6 +7,7 @@ from LIB import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.book.urls')),
+    path('', include('apps.user.urls')),
     # path('accounts/', include('allauth.urls')),
 ]
 if settings.DEBUG:

@@ -38,7 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    
     'apps.book.apps.BookConfig',
+    'apps.user.apps.UserConfig',
+    
+    
+    
     'django_cleanup.apps.CleanupConfig',
     "debug_toolbar",
     # 'allauth', 

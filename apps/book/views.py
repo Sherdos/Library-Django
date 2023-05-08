@@ -1,16 +1,14 @@
-import os
+from typing import Any
+from django import http
 from django.http import FileResponse
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView,View
 from .models import *
 from .forms import *
 from .utils import *
-from django.contrib.auth.views import LoginView
-from django.contrib.auth import logout, login
 from django.core.cache import cache
 import fitz
+from django.contrib.auth import logout
 # Create your views here.
 
 # ListView
@@ -122,90 +120,39 @@ class MyBookView(DataMixin, DetailView):
         c_def = self.get_user_context(title='Мои книги')
         context.update(c_def)
         return context
-
-
-# CreateView
-
-class RegisterUserView(DataMixin, CreateView):
-    form_class = RegisterUserForm
-    template_name = 'book/auth.html'
-    success_url = reverse_lazy('index')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['description']='Пожалуйста, заполните эту форму, чтобы создать учетную запись.'
-        c_def = self.get_user_context(title='Регистрация')
-        context.update(c_def)
-        return context
     
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect('index')
-        
-        
-           
-class LoginUserView(DataMixin, LoginView):
-    form_class = LoginUserForm
-    template_name = 'book/auth.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['description']='Пожалуйста, заполните эту форму, чтобы войти в учетную запись.'
-        c_def = self.get_user_context(title='Авторизация')
-        context.update(c_def)
-        return context
-    
-    def get_success_url(self):
-        return reverse_lazy('index')
-
     
 
-
-
-
-
-# def read(request,id):
-#     book = Books.objects.get(id=id)
-#     return FileResponse(book.book.open())
+class BookReadView(DataMixin,View):
+    template_name = 'book/show/read.html'
+    
+    def get(self, request, *args: Any, **kwargs: Any):
+        book = Books.objects.get(id=kwargs['pk'])
+        page=request.GET.get('page')
+        if page is None:
+            page=1
+        photo = self.photo_page(book,int(page))
+        context = {
+            'photo':photo
+        }
+        return render(request, self.template_name, context)
   
+    def photo_page(self, book,page_number):
+        book_url = fitz.open('media/'+str(book.book))
+        page = book_url.load_page(page_number)
+        mat = fitz.Matrix(300/72, 300/72)
+        pix = page.get_pixmap(matrix=mat)
+        photo = f"media/photo/{book.slug} page{page_number}.png"
+        pix.save(photo)
+        return photo
 
-def about(request):
-    return render(request, 'book/pdf_viewer.html')
 
 
 
 def logout_user(request):
     logout(request)
     return redirect('index')
-
-
-def book_read(request, id):
-    book = Books.objects.get(id=id)
-    book_url = fitz.open('media/'+str(book.book))
-    if 'old_path' in request.GET:
-        path_to_file = request.GET.get('old_path')
-    try:
-        page_number = int(request.GET.get('page'))
-        page = book_url.load_page(page_number)
-    except:
-        page_number = 1
-        page = book_url.load_page(0)
-    mat = fitz.Matrix(300/72, 300/72)
-    pix = page.get_pixmap(matrix=mat)
-    photo = f"media/photo/{book.slug} page{page_number}.png"
-    pix.save(photo)
-    context = {
-        'photo':photo,
-        'book_url':book_url
-    }
-    # try:
-    return render(request, 'book/book_read.html', context)
-    # except:
-    #     return render(request, 'book/book_read.html')
-    # finally:
-    #     if os.path.exists(photo):
-    #         os.remove(photo)
+        
 
 
     

@@ -12,13 +12,10 @@ urlpatterns = [
     path("my_book/<int:pk>/",    MyBookView.as_view(),         name="my_book"),
     
     # auth
-    path('login/',                      LoginUserView.as_view(),      name='login'),
-    path('register/',                   RegisterUserView.as_view(),   name='register'),
     path('logout/',                     logout_user,                  name='logout'),
-    
+   
     # other
-    path('about/',                      about,                        name='about'),
-    path('book/ap/<int:id>/',    book_read,                          name='read'),
+    path('book/ap/<int:pk>/',    BookReadView.as_view(),                          name='read'),
     
     
     path('author/<slug:slug>/',         ShowAuthor.as_view(),         name='show_author'),
