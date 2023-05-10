@@ -132,8 +132,13 @@ class BookReadView(DataMixin,View):
         if page is None:
             page=1
         photo = self.photo_page(book,int(page))
+        page_next = int(page) + 1
+        page_previous = int(page) - 1
         context = {
-            'photo':photo
+            'photo':photo,
+            'page_next':page_next,
+            'page_previous':page_previous,
+            'page':page
         }
         return render(request, self.template_name, context)
   
