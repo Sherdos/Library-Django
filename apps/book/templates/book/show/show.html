@@ -1,0 +1,19 @@
+{% extends 'book/homepage.html' %}
+{% load static %}
+    {% block title %}
+    <title>{{title}} </title>
+    {% endblock title %}
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'book/css/show.css' %}">
+    {% endblock %}
+
+    {% block include %}
+        <ul class="breadcrumb">
+            <li><a href="{% url 'index' %}">Главная</a></li>
+            {% block href %}
+                
+            {% endblock href %}
+        </ul>
+    {% endblock %}
+
+

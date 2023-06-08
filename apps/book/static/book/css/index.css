@@ -1,0 +1,87 @@
+
+
+.books h3 {
+    padding: 15px;
+}
+
+.cards {
+    display: flex;
+    column-gap: 5px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    /* max-width: 300px; */
+    width: 30%;
+    text-align: center;
+    font-family: arial;
+    margin-left: 10px;
+    /* height: 400px; */
+    color: black;
+    margin-top: 30px;
+
+}
+  
+.card:hover {
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+  
+.card_body {
+    padding: 30px 16px;
+    height: 200px; 
+    background-color: rgb(229 229 229);
+}
+
+.card img {
+    width: 130px;
+  height: 190px;
+}
+
+.card_img {
+    height: 210px;
+    padding: 10px;
+    background-color: rgb(186, 178, 178);
+}
+
+.card_buttom {
+    margin-top: 10px;
+}
+
+.container-pagination {
+    margin-top: 20px;
+}
+
+.step-links {
+    display: flex;
+    justify-content: space-around;
+    margin-top:10px;
+}
+
+
+.pagination {
+    display: flex;
+    list-style-type: none;
+  }
+
+  
+.pagination a, .pagination p {
+    color: black;
+    display: flex;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+
+.pagination p {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+.pagination a:hover {background-color: #ddd;}
+
+.search {
+    display:inline-block; 
+}

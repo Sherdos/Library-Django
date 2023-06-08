@@ -1,0 +1,35 @@
+<nav class="navbar">
+    <div class="container-fluid">
+        <div class="menu">
+            <div style='display:flex;'>
+                <div class="burger-menu">
+                    {% include 'book/components/burger_menu.html' %}
+                </div>
+                <div class="burger-menu-icon nav-link">
+                    <div class="burger-line"></div>
+                    <div class="burger-line"></div>
+                    <div class="burger-line"></div>
+                </div>
+            </div>
+
+            <div class="navbar-nav">
+                <a href="{% url 'index' %}"><h1 class = 'nav-link' style='display:inline-block'>Libmed</h1></a>
+                <a class="nav-link" aria-current="page" href="{% url 'index' %}">Главная</a>
+            {% if request.user.is_superuser %}
+                <a class="nav-link" href="{% url 'admin:index' %}">Админ панель</a>
+            {% endif %}
+            {% if request.user.is_authenticated %}  
+                <a class="nav-link"  href="{% url 'my_book' request.user.id %}">Мои книги</a>
+                <a class="nav-link" style='float:right' href="{% url 'logout' %}">Выйти</a>
+            {% else %}
+                <a class="nav-link" style='float:right' href="{% url 'login' %}">Войти</a>
+                <a class="nav-link" style='float:right' href="{% url 'register' %}">Регистрация</a>
+            {% endif %}
+                <form class='search' action='{% url "search_book" %}' style="float: right;">
+                    <input name='key' class='input-search' style='width: 200px;height: 25px;' >
+                    <button class='' style='padding: 4px;color: white;background: #4CAF50;border: none;' > Поиск </botton>
+                </form>
+            </div>
+      </div>
+    </div>
+  </nav>

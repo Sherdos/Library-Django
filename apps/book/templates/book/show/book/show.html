@@ -1,0 +1,32 @@
+{% extends 'book/show/show.html' %}
+{% load static %}
+{% block content %}
+    <div class='row'>
+        <div class="book_img col-l-6 col-p-12">
+            <img src='{{book.image.url}}'>
+            {% if request.user.is_authenticated %}
+                <form method='post' style='display:flex'>
+                    {% csrf_token %}
+                    <input name='book_id' type='hidden' value='{{book.id}}'>
+                    <button class="btn button" type="submit" >Скачать</button>
+                    <a  href="{% url 'read' book.id %}"><button type="button" class="btn button" >Читать</button> </a>
+                </form>
+                
+
+            {% else %}
+                <p style='color:red; margin-top:10px; text-align:center; font-size:10px;' >  Авторизуйтесь чтобы Читать и Скачивать книги или записи </p>
+            {% endif %}
+        </div>
+        <div class='col-l-6'>
+            <h1 class='title'>{{book.title}}</h1>
+            <br>
+            <ul class='info'>
+                <li><b>Автор:</b> <a href='{{book.author.get_absolute_url}}'>{{book.author.name}}</a></li>
+                <li><b>Дата написания:</b> {{ book.date_issue }}</li>
+                <li><b>Дата поступления:</b> {{ book.create }}</li>
+            </ul>
+            <br>
+            {{book.description|linebreaks}}
+        </div>
+    </div>
+{% endblock %}

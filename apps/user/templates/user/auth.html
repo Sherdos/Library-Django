@@ -1,0 +1,28 @@
+{% extends 'user/homepage.html' %}
+
+
+{% block content %}
+    <form action="" method="post" >
+    <div class="con">
+        <h1>{{title}}</h1>
+        <br>
+        <p>{{description}}</p>
+        <hr>
+        {% csrf_token %}
+        
+            <div class="form-error">{{form.non_field_errors}}</div>
+
+        {% for f in form %}
+            <div class="form-error">{{f.errors}}</div>
+            <p><label class="form-label" for="{{f.id_for_label}}"><b>{{f.label}}</b></label>{{f}}</p>
+        {% endfor %}
+        <hr>
+        <p>Создавая аккаунт, вы соглашаетесь с нашими <a href="#">Условиями и конфиденциальностью</a>.</p>
+        <button type="submit" class="btn" >{{ title }}</button>
+    </div>
+    <div class="con signin">
+        <p>У вас уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>.</p>
+    </div>
+</form>
+{% endblock content %}
+

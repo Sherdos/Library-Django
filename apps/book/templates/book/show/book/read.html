@@ -1,0 +1,18 @@
+{% extends 'book/homepage.html' %}
+{% block content %}
+    <br>
+    <div class='body-read'>
+        <img class='page-photo' src='/{{photo}}' />
+        <ul class="paginator" >
+            <li><a href="?page={{page_previous}}&page_url={{photo}}">&laquo; Назад</a></li>
+            <span class="current">
+                <form action="">
+                    <input type="text" name="page" placeholder="Введите номер страницы">
+                    <button style=" padding: 4px;color: white;background: #4CAF50;border: none;">поиск</button>
+                </form>
+                Страница {{ page }}/{{count_page}}
+            </span>
+            <li><a href="?page={{page_next}}&page_url={{photo}}">Следуший &raquo;</a></li>
+        </ul>
+    </div>
+{% endblock %}

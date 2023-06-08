@@ -1,0 +1,42 @@
+.card_detail {
+    display: flex;
+}
+
+.book_img {
+    margin-top: 10px;
+}
+
+.book_img img {
+    width: 100%;
+    height: 100%;
+}
+
+.book_text {
+    width: 100%;
+    height: 100%;
+}
+
+.book_text p {
+    margin-top: 10px;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    width: 80px !important;
+    margin-left: 10px;
+}
+
+
+
+
+.info {
+    list-style-type: none;
+}
+
+.info li {
+    padding-top: 10px;
+}

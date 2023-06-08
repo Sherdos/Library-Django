@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} </title>
+    <link rel="stylesheet" href="{% static 'book/css/style.css' %}">
+    {% block css %}
+    
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'book/css/media.css' %}">
+</head>
+<body>
+    {% block navbar  %}
+      {% include 'book/components/header.html' %}
+    {% endblock  %}
+
+
+  <div class="row">
+    <div class="col-l-2 col-ps-2" style='margin-top:40px;'>
+      {% block sidebar %}
+        <ul class='sidebar'>
+          {% for c in cats %}
+            {% if c.count > 0 %}
+              <li class='link-sidebar'><a href='{{c.get_absolute_url}}' >{{c.title}}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endblock sidebar %}
+    </div>
+    <div class="col-l-9 col-p-12" style='margin-top:40px;'>
+      {% block content %}
+  
+      {% endblock %}
+    </div>
+  </div>
+
+    <script src='{% static "book/js/main.js" %}'></script>   
+
+</body>
+</html>
