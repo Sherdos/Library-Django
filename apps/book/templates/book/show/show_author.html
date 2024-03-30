@@ -1,17 +1,19 @@
-{% extends 'book/show/show.html' %}
-
-
-   
-    
-    {% block content %}
-        <div class='row'>
-            <div class="book_img col-l-6 col-p-12">
-                <img src='{{author.image.url}}'>
-            </div>
-            <div class='col-l-6'>
-                <h1 class='title'>{{author}}</h1>
-                <br>
-                {{author.description|linebreaks}}
-            </div>
-        </div>
-    {% endblock %}
+{% extends 'book/show/show.html' %} 
+{% block content %}
+<div class="row">
+  <div class="book_img col-l-6 col-p-12">
+    {% if author.image.url %}
+    <img src="{{ author.image.url }}" alt="Author Image" />
+    {% else %}
+    <p>No image available</p>
+    {% endif %}
+  </div>
+  <div class="author-details col-l-6">
+    <h1 class="title">{{ author.name }}</h1>
+    <br />
+    <div class="biography">
+      {{ author.biography|linebreaks }}
+    </div>
+  </div>
+</div>
+{% endblock %}

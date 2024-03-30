@@ -1,54 +1,45 @@
 from django.contrib import admin
-from .models import *
 from django.utils.safestring import mark_safe
+from .models import Category, Book, Author
 
-# Register your models here.
-
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('id','title', 'slug')
+    list_display = ('id', 'title')
     list_display_links = ('id', 'title')
-    prepopulated_fields = {'slug' : ('title', )}
-    search_fields = ('title','id')
-    
-    
-class BookAdmin(admin.ModelAdmin):
-    list_display = ('id','title', 'category', 'date_issue', 'get_html_photo')
-    list_display_links = ('title','id')
-    list_filter = ('category','create','date_issue')
-    list_editable = ('category',)
-    prepopulated_fields = {'slug' : ('title', )}
-    search_fields = ('title',)
-    fields = ('title','slug','get_html_photo','category','description','book','author','image','date_issue','create','buyer')
-    readonly_fields = ('date_issue','create','get_html_photo')
+    search_fields = ('title', 'id')
 
-    def get_html_photo(self,object):
+@admin.register(Book)
+class BookAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'date_of_issue', 'get_html_photo')
+    list_display_links = ('title', 'id')
+    list_filter = ('categories', 'created_at', 'date_of_issue')
+    search_fields = ('title',)
+    readonly_fields = ('created_at', 'get_html_photo', 'favorites')
+    fieldsets = (
+        (None, {'fields': ('title', 'categories', 'description', 'book', 'authors', 'image')}),
+        ('Date Information', {'fields': ('date_of_issue',), 'classes': ('collapse',)}),
+        ('Read-only Fields', {'fields': ('created_at', 'get_html_photo', 'favorites'), 'classes': ('collapse',)})
+    )
+
+    def get_html_photo(self, object):
         if object.image:
             return mark_safe(f"<img src='{object.image.url}' width=50>")
-        
+
     get_html_photo.short_description = 'Фото'
 
+@admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ('id','name', 'get_html_photo')
-    list_display_links = ('name','id')
+    list_display = ('id', 'name', 'get_html_photo')
+    list_display_links = ('name', 'id')
     list_filter = ('name',)
-    prepopulated_fields = {'slug' : ('name', )}
     search_fields = ('name',)
-    fields = ('name','slug','description','get_html_photo','image','dowl')
     readonly_fields = ('get_html_photo',)
 
-    def get_html_photo(self,object):
+    def get_html_photo(self, object):
         if object.image:
             return mark_safe(f"<img src='{object.image.url}' width=50>")
-        
+
     get_html_photo.short_description = 'Фото'
 
-
-admin.site.register(Books, BookAdmin)
-
-admin.site.register(Category, CategoryAdmin)
-
-admin.site.register(Author, AuthorAdmin)
-
-admin.site.site_title='Lib'
-admin.site.site_header='Lib'
-
+admin.site.site_title = 'LibMed Админ'
+admin.site.site_header = 'LibMed Администрация'

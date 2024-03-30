@@ -1,0 +1,9 @@
+<div class="col-l-2 col-ps-3 sidebar">
+  <ul class="">
+    {% for c in cats %} {% if c.count > 0 %}
+    <li class="link-sidebar">
+      <a href="{{c.get_absolute_url}}">{{c.title}}</a>
+    </li>
+    {% endif %} {% endfor %}
+  </ul>
+</div>

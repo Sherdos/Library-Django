@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
+from decouple import config, Csv
+from dj_database_url import parse as db_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-luy3czczj9#^fz=ym_ycib6t_y71^r@hq$5e5tt_j7v6@ux^2x'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+print(ALLOWED_HOSTS)
 
 
 # Application definition
@@ -38,19 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    
+    # my apps
     'apps.book.apps.BookConfig',
     'apps.user.apps.UserConfig',
-    
-    
-    
+    # others
     'django_cleanup.apps.CleanupConfig',
     "debug_toolbar",
-    # 'allauth', 
-    # 'allauth.account', # must
-    # 'allauth.socialaccount', # must
-    # 'allauth.socialaccount.providers.google', # new
+    'django_celery_beat'
 ]
 
 
@@ -90,22 +87,12 @@ WSGI_APPLICATION = 'LIB.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': config(
+        'DATABASE_URL',
+        default=f'sqlite:///{os.path.join(BASE_DIR / 'db.sqlite3')}',
+        cast=db_url
+    )
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': '****',
-#         'USER':'***',
-#         'PASSWORD':'***',
-#         'HOST':'localhost',
-#         'PORT':3306,
-#     }
-# }
 
 
 # Password validation
@@ -156,9 +143,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 INTERNAL_IPS = [
-    # ...
     "127.0.0.1",
-    # ...
 ]
 
 
@@ -169,34 +154,3 @@ CACHES = {
     }
 }
 
-X_FRAME_OPTIONS = 'SAMEORIGIN'
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    }
-}
-
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    # 'allauth.account.auth_backends.AuthenticationBackend'
-]
-
-
-SITE_ID = 2
-
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-
-SOCIALACCOUNT_QUERY_EMAIL = True
-ACCOUNT_LOGOUT_ON_GET= True
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_EMAIL_REQUIRED = True
-SOCIALACCOUNT_LOGIN_ON_GET=True

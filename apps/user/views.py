@@ -2,13 +2,13 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from django.contrib.auth import login
-from .forms import *
+from django.contrib.auth import login, logout
+from apps.user.forms import RegisterUserForm, LoginUserForm
 # Create your views here.
 class RegisterUserView(CreateView):
     form_class = RegisterUserForm
     template_name = 'user/auth.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('book:index')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -19,7 +19,7 @@ class RegisterUserView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('index')
+        return redirect('book:index')
         
         
            
@@ -35,5 +35,8 @@ class LoginUserView(LoginView):
         return context
     
     def get_success_url(self):
-        return reverse_lazy('index')
+        return reverse_lazy('book:index')
 
+def logout_user(request):
+    logout(request)
+    return redirect('book:index')

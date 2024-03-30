@@ -1,0 +1,20 @@
+<div class="card">
+  <a href="{{ book.get_absolute_url }}">
+    <div class="card_img">
+      <img src="{{ book.image.url }}" alt="Book Image" />
+    </div>
+  </a>
+  <div class="card_body">
+    <a
+      href="{{ book.get_absolute_url }}"
+      style="color: black; text-decoration: none"
+    >
+      <h2 style="font-size: medium; height: 50px">
+        {{ book.title|truncatechars:40 }}
+      </h2>
+    </a>
+    <p style="margin-top: 10px; height: 100px">
+      {{ book.description|truncatechars:100 }}
+    </p>
+  </div>
+</div>

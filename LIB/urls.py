@@ -1,15 +1,16 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
 from LIB import settings
+from django.conf.urls.static import static
 
+# main routs
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.book.urls')),
     path('', include('apps.user.urls')),
-    # path('accounts/', include('allauth.urls')),
 ]
+
+# additional routs
 if settings.DEBUG:
     urlpatterns = [
         path('__debug__/', include('debug_toolbar.urls')),

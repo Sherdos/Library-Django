@@ -1,39 +1,42 @@
-{% extends 'book/show/show.html' %}
-{% load static %}
-
-
-
-
-{% block content %}
-    <div class='row'>
-        <div class="book_img col-l-6 col-p-12">
-            <img src='{{book.image.url}}'>
-            {% if request.user.is_authenticated %}
-                <form method='post' style='display:flex'>
-                    {% csrf_token %}
-                    <input name='book_id' type='hidden' value='{{book.id}}'>
-                    {% if request.user in book.buyer.all %}
-                        <button class="btn button" name='read' type="submit" >Читать</button>
-                    {% else %}
-                        <button class="btn button" name='buy' type="submit" >Купить</button>
-                    {% endif %}
-                </form>
-                <a href="{% url 'read' book.id %}">Читать книгу</a>
-
-            {% else %}
-                <p style='color:red; margin-top:10px; text-align:center; font-size:10px;' >  Авторизуйтесь чтобы Читать книги или записи </p>
-            {% endif %}
-        </div>
-        <div class='col-l-6'>
-            <h1 class='title'>{{book.title}}</h1>
-            <br>
-            <ul class='info'>
-                <li><b>Автор:</b> <a href='{{book.author.get_absolute_url}}'>{{book.author.name}}</a></li>
-                <li><b>Дата написания:</b> {{ book.date_issue }}</li>
-                <li><b>Дата поступления:</b> {{ book.create }}</li>
-            </ul>
-            <br>
-            {{book.description|linebreaks}}
-        </div>
+{% extends 'book/show/show.html' %} {% load static %} {% block content %}
+<div class="row">
+  <div class="book_img col-l-6 col-p-12">
+    {% if book.image.url %}
+    <img src="{{ book.image.url }}" alt="Book Image" />
+    {% else %}
+    <p>No image available</p>
+    {% endif %} {% if request.user.is_authenticated %}
+    <div class="buttons">
+      <a class="button" href="{% url 'book:read' book.slug %}">Читать книгу</a>
+      <a class="button" href="{% url 'book:add_favorite' book.slug %}"
+        >Добавить в избранные</a
+      >
+      <a class="button" href="{% url 'book:download' book.slug %}">Скачать</a>
     </div>
+    {% else %}
+    <p
+      style="color: red; margin-top: 10px; text-align: center; font-size: 10px"
+    >
+      Авторизуйтесь, чтобы читать книги или скачать
+    </p>
+    {% endif %}
+  </div>
+  <div class="col-l-6">
+    <h1 class="title">{{ book.title }}</h1>
+    <br />
+    <ul class="info">
+      <li>
+        <b>Автор(ы):</b>
+        {% for author in book.authors.all %}
+        <a class="author-name" href="{{ author.get_absolute_url }}">{{ author.name }}</a>
+        {% if not forloop.last %} , <span></span>
+        {% endif %} {% endfor %}
+      </li>
+      <li><b>Дата написания:</b> {{ book.date_issue }}</li>
+      <li><b>Дата поступления:</b> {{ book.create }}</li>
+    </ul>
+    <br />
+    {{ book.description|linebreaks }}
+  </div>
+</div>
 {% endblock %}

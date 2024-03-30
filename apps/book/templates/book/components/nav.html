@@ -1,0 +1,62 @@
+<nav class="navbar">
+      <div class="container-fluid">
+        <div class="menu">
+          <!-- Navigation menu items -->
+          <div class="nav-burger-menu" style='display:flex;'>
+            
+              <div class="burger-menu">
+                {% include 'book/components/burger_menu.html' %}
+              </div>
+
+              <div class="burger-menu-icon nav-link">
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+              </div>
+          <h1 class="nav-link" style='display:inline-block'>Libmed</h1>
+              
+        </div>
+        <div class="navbar-nav">
+          <!-- Brand/logo -->
+          <h1 class="nav-link" style='display:inline-block'>Libmed</h1>
+          <!-- Navigation links -->
+          <a class="nav-link" href="{% url 'book:index' %}">Главная</a>
+          {% if request.user.is_superuser %}
+          <a class="nav-link" href="{% url 'admin:index' %}">Админ панель</a>
+          {% endif %}
+          <!-- User-specific navigation links -->
+          {% if request.user.is_authenticated %}
+          <a class="nav-link" href="{% url 'book:my_book' request.user.id %}"
+            >Мои книги</a
+          >
+          <a class="nav-link" style="float: right" href="{% url 'logout' %}"
+            >Выйти</a
+          >
+          {% else %}
+          <a class="nav-link" style="float: right" href="{% url 'login' %}"
+            >Войти</a
+          >
+          <!-- <a class="nav-link" style="float:right" href="{% url 'register' %}">Регистрация</a> -->
+          {% endif %}
+          <!-- Search form -->
+          <form class="search" action="{% url 'book:search_book' %}">
+            <input
+              name="key"
+              class="input-search"
+              style="width: 200px; height: 25px"
+            />
+            <button
+              class=""
+              style="
+                padding: 4px;
+                color: white;
+                background: #4caf50;
+                border: none;
+              "
+            >
+              Поиск
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>

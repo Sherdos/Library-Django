@@ -1,127 +1,246 @@
-
-
-
-
+/* Column Layouts */
 [class*="col-"] {
-    float: left;
-    padding: 15px;
-  }
-
-.row::after {
-    content: "";
-    clear: both;
-    display: table;
+  float: left;
+  padding: 15px;
 }
 
+/* Row Clearing */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
 
-
-/* For mobile phones: */
-[class*="col-"] {
+/* Grid Layout Adjustments */
+/* For mobile phones */
+@media only screen and (max-width: 600px) {
+  [class*="col-"] {
     width: 100%;
   }
-.col-ps-2 {
-  display: none;
 }
 
-.navbar-nav {
-  display: none;
-}
-
-.burger-menu-icon {
-  display: block;
-}
-
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-  .col-ps-1 {width: 8.33%;}
-  .col-ps-2 {width: 16.66%;}
-  .col-ps-3 {width: 25%;}
-  .col-ps-4 {width: 33.33%;}
-  .col-ps-5 {width: 41.66%;}
-  .col-ps-6 {width: 50%;}
-  .col-ps-7 {width: 58.33%;}
-  .col-ps-8 {width: 66.66%;}
-  .col-ps-9 {width: 75%;}
-  .col-ps-10 {width: 83.33%;}
-  .col-ps-11 {width: 91.66%;}
-  .col-ps-12 {width: 100%;}
-  .title { font-size: medium; }
-  .info { font-size: small;}
-}
-
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
+/* For small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-  .col-p-1 {width: 8.33%;}
-  .col-p-2 {width: 16.66%;}
-  .col-p-3 {width: 25%;}
-  .col-p-4 {width: 33.33%;}
-  .col-p-5 {width: 41.66%;}
-  .col-p-6 {width: 50%;}
-  .col-p-7 {width: 58.33%;}
-  .col-p-8 {width: 66.66%;}
-  .col-p-9 {width: 75%;}
-  .col-p-10 {width: 83.33%;}
-  .col-p-11 {width: 91.66%;}
-  .col-p-12 {width: 100%;}
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-  .col-t-1 {width: 8.33%;}
-  .col-t-2 {width: 16.66%;}
-  .col-t-3 {width: 25%;}
-  .col-t-4 {width: 33.33%;}
-  .col-t-5 {width: 41.66%;}
-  .col-t-6 {width: 50%;}
-  .col-t-7 {width: 58.33%;}
-  .col-t-8 {width: 66.66%;}
-  .col-t-9 {width: 75%;}
-  .col-t-10 {width: 83.33%;}
-  .col-t-11 {width: 91.66%;}
-  .col-t-12 {width: 100%;}
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-  .col-l-1 {width: 8.33%;}
-  .col-l-2 {width: 16.66%;display: block;}
-  .col-l-3 {width: 25%;}
-  .col-l-4 {width: 33.33%;}
-  .col-l-5 {width: 41.66%;}
-  .col-l-6 {width: 50%;}
-  .col-l-7 {width: 58.33%;}
-  .col-l-8 {width: 66.66%;}
-  .col-l-9 {width: 75%;}
-  .col-l-10 {width: 83.33%;}
-  .col-l-11 {width: 91.66%;}
-  .col-l-12 {width: 100%;}
-  .mobile-btn{display: none;}
-  .navbar-nav{display: block;}
-  .burger-menu-icon{display: none;}
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-  .col-ml-1 {width: 8.33%;}
-  .col-ml-2 {width: 16.66%;}
-  .col-ml-3 {width: 25%;}
-  .col-ml-4 {width: 33.33%;}
-  .col-ml-5 {width: 41.66%;}
-  .col-ml-6 {width: 50%;}
-  .col-ml-7 {width: 58.33%;}
-  .col-ml-8 {width: 66.66%;}
-  .col-ml-9 {width: 75%;}
-  .col-ml-10 {width: 83.33%;}
-  .col-ml-11 {width: 91.66%;}
-  .col-ml-12 {width: 100%;}
-}
-@media (max-width: 720px) {
-  .card {
-    width: 40%;
+  .col-p-1 {
+    width: 8.33%;
+  }
+  .col-p-2 {
+    width: 16.66%;
+  }
+  .col-p-3 {
+    width: 25%;
+  }
+  .col-p-4 {
+    width: 33.33%;
+  }
+  .col-p-5 {
+    width: 41.66%;
+  }
+  .col-p-6 {
+    width: 50%;
+  }
+  .col-p-7 {
+    width: 58.33%;
+  }
+  .col-p-8 {
+    width: 66.66%;
+  }
+  .col-p-9 {
+    width: 75%;
+  }
+  .col-p-10 {
+    width: 83.33%;
+  }
+  .col-p-11 {
+    width: 91.66%;
+  }
+  .col-p-12 {
+    width: 100%;
   }
 }
-@media (max-width: 425px) {
+
+/* For medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .col-t-1 {
+    width: 8.33%;
+  }
+  .col-t-2 {
+    width: 16.66%;
+  }
+  .col-t-3 {
+    width: 25%;
+  }
+  .col-t-4 {
+    width: 33.33%;
+  }
+  .col-t-5 {
+    width: 41.66%;
+  }
+  .col-t-6 {
+    width: 50%;
+  }
+  .col-t-7 {
+    width: 58.33%;
+  }
+  .col-t-8 {
+    width: 66.66%;
+  }
+  .col-t-9 {
+    width: 75%;
+  }
+  .col-t-10 {
+    width: 83.33%;
+  }
+  .col-t-11 {
+    width: 91.66%;
+  }
+  .col-t-12 {
+    width: 100%;
+  }
+}
+
+/* For large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .col-l-1 {
+    width: 8.33%;
+  }
+  .col-l-2 {
+    width: 16.66%;
+  }
+  .col-l-3 {
+    width: 25%;
+  }
+  .col-l-4 {
+    width: 33.33%;
+  }
+  .col-l-5 {
+    width: 41.66%;
+  }
+  .col-l-6 {
+    width: 50%;
+  }
+  .col-l-7 {
+    width: 58.33%;
+  }
+  .col-l-8 {
+    width: 66.66%;
+  }
+  .col-l-9 {
+    width: 75%;
+  }
+  .col-l-10 {
+    width: 83.33%;
+  }
+  .col-l-11 {
+    width: 91.66%;
+  }
+  .col-l-12 {
+    width: 100%;
+  }
+}
+
+/* For extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .col-ml-1 {
+    width: 8.33%;
+  }
+  .col-ml-2 {
+    width: 16.66%;
+  }
+  .col-ml-3 {
+    width: 25%;
+  }
+  .col-ml-4 {
+    width: 33.33%;
+  }
+  .col-ml-5 {
+    width: 41.66%;
+  }
+  .col-ml-6 {
+    width: 50%;
+  }
+  .col-ml-7 {
+    width: 58.33%;
+  }
+  .col-ml-8 {
+    width: 66.66%;
+  }
+  .col-ml-9 {
+    width: 75%;
+  }
+  .col-ml-10 {
+    width: 83.33%;
+  }
+  .col-ml-11 {
+    width: 91.66%;
+  }
+  .col-ml-12 {
+    width: 100%;
+  }
+}
+
+/* Hide and Display Adjustments */
+/* For mobile phones */
+@media only screen and (max-width: 600px) {
+  .col-ps-2 {
+    display: none;
+  }
+  .navbar-nav {
+    display: none;
+  }
+  .burger-menu-icon {
+    display: block;
+  }
+}
+
+/* Media Query for Screens Larger than 992px */
+@media only screen and (min-width: 992px) {
+  /* Display Navbar and Sidebar */
+  .navbar-nav,
+  .sidebar {
+    display: block;
+  }
+  /* Hide Burger Menu Icon, Mobile Button, and Menu */
+  .burger-menu-icon,
+  .mobile-btn,
+  .nav-burger-menu {
+    display: none !important;
+  }
+  .content {
+    margin-left: 290px;
+  }
+}
+
+/* Media Query for Screens up to 992px */
+@media (max-width: 992px) {
+  /* Hide Navbar and Sidebar */
+  .navbar-nav,
+  .sidebar {
+    display: none;
+  }
+  .content {
+    margin-top: 0;
+  }
+  /* Display Burger Menu Icon and Mobile Button */
+  .burger-menu-icon,
+  .mobile-btn,
+  .nav-burger-menu {
+    display: block;
+  }
+  /* Adjust Card Width for Responsive Layout */
+  .card {
+    width: 30%; /* Adjust as needed */
+  }
+}
+
+/* Additional Adjustments */
+@media (max-width: 790px) {
+  .card {
+    width: 47%;
+  }
+}
+
+@media (max-width: 600px) {
   .card {
     width: 80%;
   }
