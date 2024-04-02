@@ -1,18 +1,28 @@
 {% extends 'book/show/show.html' %} 
+{% load static %}
 {% block content %}
 <div class="row">
   <div class="book_img col-l-6 col-p-12">
-    {% if author.image.url %}
-    <img src="{{ author.image.url }}" alt="Author Image" />
+    
+    <img src="
+    {% if author.img.url %}
+      {{ author.image.url }}
     {% else %}
-    <p>No image available</p>
+      {% static 'no_image.png' %}
     {% endif %}
+      " alt="Author Image" />
   </div>
   <div class="author-details col-l-6">
     <h1 class="title">{{ author.name }}</h1>
     <br />
     <div class="biography">
-      {{ author.biography|linebreaks }}
+      
+      {% if author.biography %}
+        {{ author.biography|linebreaks }}
+      {% else %}
+      <h4>Нет информации</h4>
+      {% endif %}
+        
     </div>
   </div>
 </div>

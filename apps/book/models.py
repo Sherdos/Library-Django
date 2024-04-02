@@ -54,12 +54,13 @@ class Category(models.Model):
 class Author(models.Model):
     name = models.CharField(max_length=70, verbose_name='Имя')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='Слаг')
-    image = models.ImageField(upload_to='author_images/', verbose_name='Фото автора', null=True, blank=True, default='no_image.png')
+    image = models.ImageField(upload_to='author_images/', verbose_name='Фото автора', null=True, blank=True)
     biography = models.TextField(verbose_name='Биография', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Автор'
         verbose_name_plural = 'Авторы'
+        ordering = ['name']
 
     def __str__(self):
         return self.name

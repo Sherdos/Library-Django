@@ -17,8 +17,8 @@ class BookAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at', 'get_html_photo', 'favorites')
     fieldsets = (
         (None, {'fields': ('title', 'categories', 'description', 'book', 'authors', 'image')}),
-        ('Date Information', {'fields': ('date_of_issue',), 'classes': ('collapse',)}),
-        ('Read-only Fields', {'fields': ('created_at', 'get_html_photo', 'favorites'), 'classes': ('collapse',)})
+        ('Информация о дате', {'fields': ('date_of_issue',), 'classes': ('collapse',)}),
+        ('Только для чтения', {'fields': ('created_at', 'get_html_photo', 'favorites'), 'classes': ('collapse',)})
     )
 
     def get_html_photo(self, object):
