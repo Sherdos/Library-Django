@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     # others
     'django_cleanup.apps.CleanupConfig',
     "debug_toolbar",
-    'django_celery_beat'
+    'django_celery_beat',
+    'django_celery_results'
 ]
 
 
@@ -88,7 +89,7 @@ WSGI_APPLICATION = 'LIB.wsgi.application'
 DATABASES = {
     'default': config(
         'DATABASE_URL',
-        default=f'sqlite:///{os.path.join(BASE_DIR / 'db.sqlite3')}',
+        default=f'sqlite:///{os.path.join(BASE_DIR, "db.sqlite3")}',
         cast=db_url
     )
 }
@@ -151,4 +152,9 @@ CACHES = {
         'LOCATION':os.path.join(BASE_DIR, 'coolsite_cache'),
     }
 }
+
+
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_RESULT_EXTENDED = True
 

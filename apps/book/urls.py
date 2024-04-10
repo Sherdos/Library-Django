@@ -2,7 +2,7 @@ from django.urls import path
 from apps.book.utils import add_favorite, download
 from apps.book.views.author_views import ShowAuthor
 from apps.book.views.book_views import BookReadView, IndexView, ShowBookView
-from apps.book.views.other_views import BookCategoryView, MyBookView, SearchBookView
+from apps.book.views.other_views import BookCategoryView, MyBookView, SearchBookView, test, test2
 
 app_name = 'book'  # Optional namespace for the app
 
@@ -22,4 +22,8 @@ urlpatterns = [
     
     # Author
     path('author/<slug:slug>/', ShowAuthor.as_view(), name='show_author'),
+    
+    # test
+    path('test/',test),
+    path('test2/',test2),
 ]

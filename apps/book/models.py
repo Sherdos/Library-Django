@@ -34,7 +34,7 @@ class Book(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=255, verbose_name='Название')
-    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='Слаг')
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='Слаг', blank=True)
 
     class Meta:
         verbose_name = 'Категория'
@@ -53,7 +53,7 @@ class Category(models.Model):
 
 class Author(models.Model):
     name = models.CharField(max_length=70, verbose_name='Имя')
-    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='Слаг')
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='Слаг', blank=True)
     image = models.ImageField(upload_to='author_images/', verbose_name='Фото автора', null=True, blank=True)
     biography = models.TextField(verbose_name='Биография', blank=True, null=True)
 
@@ -67,7 +67,7 @@ class Author(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(translit(self.title,'ru', reversed=True))
+            self.slug = slugify(translit(self.name,'ru', reversed=True))
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):

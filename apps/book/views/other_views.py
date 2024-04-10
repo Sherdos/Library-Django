@@ -1,8 +1,14 @@
+import json
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.views.generic import ListView, DetailView
 from apps.book.models import Book, Category
+from apps.book.tasks import delete_photos
 from apps.book.utils import DataMixin
+from django.http import HttpResponse
+from django_celery_beat.models import PeriodicTask, IntervalSchedule
+
+
 
 class BookCategoryView(DataMixin, ListView):
     template_name = 'book/index.html'
@@ -58,3 +64,21 @@ class MyBookView(DataMixin, DetailView):
         return context
 
 
+def test(request):
+    delete_photos()
+    return HttpResponse('HEllo')
+
+def test2(request):
+    interval, _ = IntervalSchedule.objects.get_or_create(
+        every = 30,
+        period = IntervalSchedule.SECONDS
+    )
+    
+    PeriodicTask.objects.create(
+        interval = interval,
+        name = 'My-schedule',
+        task = 'apps.book.task.delete_photos',
+        # args = json.dump(['Arg1','Arg2'])
+        # one_off = True
+    )
+    return HttpResponse('Task') 

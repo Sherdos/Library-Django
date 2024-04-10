@@ -8,9 +8,11 @@
     {% endif %} {% if request.user.is_authenticated %}
     <div class="buttons">
       <a class="button" href="{% url 'book:read' book.slug %}">Читать книгу</a>
+      {% if book not in request.user.book_set.all %}
       <a class="button" href="{% url 'book:add_favorite' book.slug %}"
         >Добавить в избранные</a
       >
+      {% endif %}
       <a class="button" href="{% url 'book:download' book.slug %}">Скачать</a>
     </div>
     {% else %}
